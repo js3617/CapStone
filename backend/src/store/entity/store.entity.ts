@@ -32,14 +32,14 @@ export class Store {
     description: '편의점 위도',
     example: '35.1493964',
   })
-  @Column({ type: 'decimal' })
+  @Column({ type: 'float' })
   store_lat: number;
 
   @ApiProperty({
     description: '편의점 경도',
     example: '129.0349086',
   })
-  @Column({ type: 'decimal' })
+  @Column({ type: 'float' })
   store_lng: number;
 
   @ApiProperty({ description: '약' })

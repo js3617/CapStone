@@ -18,7 +18,7 @@ async function bootstrap() {
           level: process.env.STAGE === 'prod' ? 'info' : 'debug',
           format: winston.format.combine(
             winston.format.timestamp(),
-            utilities.format.nestLike('NestJS', { prettyPrint: true }),
+            utilities.format.nestLike('Capstone', { prettyPrint: true }),
           ),
         }),
       ],
