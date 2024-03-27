@@ -4,7 +4,55 @@ const GlobalStyle = createGlobalStyle`
     :root{
         --point-color-main: #;
         --point-color-serve: #;
-        --pint-color-background: #AEB9F2;
+        --point-color-background: #AEB9F2;
+        --text-color: #000000;
+    }
+
+    *{
+        list-style: none;
+        text-decoration: none;
+    }
+
+    html, body{
+        background-color: var(--point-color-background);
+    }
+
+    a{
+        color: var(--text-color)
+    }
+    nav{
+        top: 0;
+        left: 0;
+        background-color: transparent;
+        position: fixed;
+        display: flex;
+        z-index: 999;
+        width: 100%;
+        .content{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
     }
     
-`
+    nav .navMenu{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        & a{
+            margin: 1rem 2rem;
+            font-size: 24px;
+            justify-content: end;
+        }
+        & hr{
+            border: 0;
+            background-color: white;
+            height: 1vh;
+        }
+    }
+    
+`;
+
+export default GlobalStyle;
