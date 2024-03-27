@@ -5,6 +5,7 @@ import App from './App';
 import Drug from "./pages/Drug";
 import Product from "./pages/Product";
 import Store from "./pages/Store";
+import Home from './pages/Home';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 
@@ -14,9 +15,10 @@ root.render(
   <BrowserRouter>
     <App />
     <Routes>
-      <Route path='/drug' element={Drug} />
-      <Route path='/product' element={Product} />
-      <Route path='/store' element={Store} />
+      <Route path='/' element={<Home/>} />
+      <Route path='/drug' element={<Drug/>} />
+      <Route path='/product' element={<Product/>} />
+      <Route path='/store' element={<Store/>} />
     </Routes>
   </BrowserRouter>
   
