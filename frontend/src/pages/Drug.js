@@ -1,8 +1,9 @@
 import React from "react";
+import API from '../hooks/NaverAPI';
 
 function Drug(){
     return(
-        <div></div>
+        <API/>
     )
 }
 
