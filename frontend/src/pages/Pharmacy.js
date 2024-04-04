@@ -1,10 +1,10 @@
 import React from "react";
 import API from '../hooks/NaverAPI';
 
-function Product(){
+function Pharmacy(){
     return(
         <API/>
     )
 }
 
-export default Product;
+export default Pharmacy;

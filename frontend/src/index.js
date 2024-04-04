@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import Pharmacy from "./pages/Pharmacy";
 import Drug from "./pages/Drug";
-import Product from "./pages/Product";
 import Store from "./pages/Store";
 import Home from './pages/Home';
 import reportWebVitals from './reportWebVitals';
@@ -17,7 +17,7 @@ root.render(
     <Routes>
       <Route path='/' element={<Home/>} />
       <Route path='/drug' element={<Drug/>} />
-      <Route path='/product' element={<Product/>} />
+      <Route path='/pharmacy' element={<Pharmacy/>} />
       <Route path='/store' element={<Store/>} />
     </Routes>
   </BrowserRouter>
