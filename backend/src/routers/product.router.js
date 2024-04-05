@@ -6,10 +6,12 @@ const router = express.Router();
 // product 페이지로 간다면 모든 제품의 리스트를 보여줌
 router.get('/', async(req, res, next) => {
     try {
-        const products = await Product.find();
-        res.json({
-            products
-        })
+        await Product.find()
+                     .exec((err, product) => {
+                        if(err) return res.status(400).send(err);
+                        return res.status(200).json({success: true, product});
+                     })
+        
     } catch (error) {
         console.error(error);
         next(error);
