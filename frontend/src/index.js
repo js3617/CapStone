@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import Drug from "./pages/Drug";
+import Drug from './pages/Drug';
 import Product from "./pages/Product";
 import Store from "./pages/Store";
 import Home from './pages/Home';
