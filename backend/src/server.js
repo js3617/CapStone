@@ -67,6 +67,7 @@ app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
 // const pharmacy_data = JSON.parse(fs.readFileSync(`${__dirname}/data/pharmacy.json`, 'utf-8'));
 // const drug_data = JSON.parse(fs.readFileSync(`${__dirname}/data/drug.json`, 'utf-8'));
 // const store_data = JSON.parse(fs.readFileSync(`${__dirname}/data/store.json`, 'utf-8'));
+// const store_detail_data = JSON.parse(fs.readFileSync(`${__dirname}/data/store_detail.json`, 'utf-8'));
 
 // const importData = async () => {
 //     try {
@@ -74,6 +75,7 @@ app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
 //             return {
 //                 storeAddr: store.storeAddr,
 //                 storeName: store.storeName,
+//                 storeId: detail.storeId,
 //                 location: {
 //                     type: 'Point',
 //                     coordinates: [parseFloat(store.storeLon), parseFloat(store.storeLat)]

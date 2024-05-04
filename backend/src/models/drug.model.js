@@ -17,6 +17,9 @@ const DrugSchema = new Schema({
     drugCaution: {
         type: [String],
         require: true
+    },
+    drugImage: {
+        type: String
     }
 })
 
