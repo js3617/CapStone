@@ -1,6 +1,21 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const OpeningHoursSchema = new Schema({
+    dayOfWeek: {
+        type: String,
+        required: true
+    },
+    openingTime: {
+        type: Number,
+        required: true
+    },
+    closingTime: {
+        type: Number,
+        required: true
+    }
+});
+
 const PharmacySchema = new Schema({
     dutyAddr: {
         type: String,
@@ -13,63 +28,15 @@ const PharmacySchema = new Schema({
     dutyTel1: {
         type: String
     },
-    wgs84Lat: {
-        type: Number,
-        required: true
+    location: {
+        type: { type: String, default: 'Point' },
+        coordinates: [Number] // [경도, 위도]
     },
-    wgs84Lon: {
-        type: Number,
-        required: true
-    },
-    dutyTime1c: {
-        type: String
-    },
-    dutyTime1: {
-        type: String
-    },
-    dutyTime2c: {
-        type: String
-    },
-    dutyTime2s: {
-        type: String
-    },
-    dutyTime3c: {
-        type: String
-    },
-    dutyTime3s: {
-        type: String
-    },
-    dutyTime4c: {
-        type: String
-    },
-    dutyTime4s: {
-        type: String
-    },
-    dutyTime5c: {
-        type: String
-    },
-    dutyTime5s: {
-        type: String
-    },
-    dutyTime6c: {
-        type: String
-    },
-    dutyTime6s: {
-        type: String
-    },
-    dutyTime7c: {
-        type: String
-    },
-    dutyTime7s: {
-        type: String
-    },
-    dutyTime8c: {
-        type: String
-    },
-    dutyTime8s: {
-        type: String
-    },
+    openingHours: [OpeningHoursSchema]
 })
+
+// 인덱스 설정: location 필드를 위한 2dsphere 인덱스
+PharmacySchema.index({ location: '2dsphere' });
 
 const Pharmacies = mongoose.model('Pharmacy', PharmacySchema);
 

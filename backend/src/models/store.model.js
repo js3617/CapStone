@@ -10,15 +10,14 @@ const StoreSchema = new Schema({
         type: String,
         required: true
     },
-    storeLat: {
-        type: Number,
-        required: true
+    location: {
+        type: { type: String, default: 'Point' },
+        coordinates: [Number] // [경도, 위도]
     },
-    storeLon: {
-        type: Number,
-        required: true
-    }
-})
+    storeId: {type: String, default: null }
+});
+
+StoreSchema.index({ location: '2dsphere'})
 
 const Stores = mongoose.model('Store', StoreSchema);
 
