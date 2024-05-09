@@ -3,49 +3,97 @@ const
     Drug = require('../models/drug.model'),
     router = express.Router(); 
 
-// drug 페이지로 간다면 모든 제품의 리스트를 보여줌
-router.get('/', async (req, res, next) => {
+// product 페이지로 간다면 모든 제품의 리스트를 보여줌
+router.get('/', async(req, res, next) => {
     try {
-        const drugs = await Drug.find();
-        res.render('drugs', { drugs });
+        await Drug.find()
+                     .exec((err, drug) => {
+                        if(err) return res.status(400).send(err);
+                        return res.status(200).json({success: true, drug});
+                    })
     } catch (error) {
         console.error(error);
         next(error);
     }
 });
 
-// 카테고리를 검색한다면 그 카테고리에 있는 값을 검색한다면
-router.get('/category/:category', async(req, res, next) => {
-    // 검색한 값을 categorySlug 변수에 할당
-    const categorySlug = req.params.category;
+// 약 하나에 대한 상세 정보
+router.get('/:id', async(req, res, next) => {
     try {
-        // drug에서 categorySlug가 포함된 drug들의 값을 drugs 변수에 할당
-        const drugs = await Drug.find({drugCategory: categorySlug});
-        res.json({
-            drugs
-        });
+        await Drug.findById(req.params.id)
+                     .exec((err, drug) => {
+                        if(err) return res.status(400).send(err);
+                        return res.status(200).json({success: true, drug});
+                    })
     } catch (error) {
         console.error(error);
         next(error);
     }
 })
 
-// 이름을 검색한다면 
-router.get('/name/:name', async(req, res, next) => {
-    // 검색한 값을 drugName 변수에 할당
-    const drugName = req.params.name;
+// 검색을 관련
+router.get('/search/:search', async (req, res, next) => {
+    const drugSearch = req.params.search;
     try {
-        // drug에서 drugName가 포함된 drug들의 값을 drugs 변수에 할당 (여기서는 그 값을 포함한 값들을 할당해줌, $regex가 그 역할)
-        const drugs = await Drug.find({
-            drugName: { $regex: drugName }
+        // 약물 이름 또는 카테고리가 정확히 일치하는 경우 검색
+        let drugs = await Drug.find({
+            $or: [
+                { drugName: drugSearch },
+                { drugCategory: drugSearch }
+            ]
         });
-        res.json({
-            drugs
-        })
+
+        // 검색 결과가 없는 경우 약물 이름에 포함된 경우로 다시 검색
+        if (drugs.length === 0) {
+            drugs = await Drug.find({ drugName: { $regex: drugSearch, $options: 'i' } });
+        }
+
+        return res.status(200).json({ success: true, drugs });
     } catch (error) {
         console.error(error);
         next(error);
     }
-})
+});
+
+// Back-End 확인용
+
+// drug 페이지로 간다면 모든 제품의 리스트를 보여줌
+// router.get('/', async (req, res, next) => {
+//     try {
+//         const drugs = await Drug.find();
+//         // res.render('drugs', { drugs });
+//         res.render({
+//             drugs
+//         })
+//     } catch (error) {
+//         console.error(error);
+//         next(error);
+//     }
+// });
+
+// router.get('/search/:search', async (req, res, next) => {
+//     const drugSearch = req.params.search;
+//     try {
+//         // 약물 이름 또는 카테고리가 정확히 일치하는 경우 검색
+//         let drugs = await Drug.find({
+//             $or: [
+//                 { drugName: drugSearch },
+//                 { drugCategory: drugSearch }
+//             ]
+//         });
+
+//         // 검색 결과가 없는 경우 약물 이름에 포함된 경우로 다시 검색
+//         if (drugs.length === 0) {
+//             drugs = await Drug.find({ drugName: { $regex: drugSearch, $options: 'i' } });
+//         }
+
+//         res.render('drugs', {
+//             drugs
+//         });
+//     } catch (error) {
+//         console.error(error);
+//         next(error);
+//     }
+// });
 
 module.exports = router;
