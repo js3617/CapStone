@@ -55,45 +55,4 @@ router.get('/search/:search', async (req, res, next) => {
     }
 });
 
-// Back-End 확인용
-
-// drug 페이지로 간다면 모든 제품의 리스트를 보여줌
-// router.get('/', async (req, res, next) => {
-//     try {
-//         const drugs = await Drug.find();
-//         // res.render('drugs', { drugs });
-//         res.render({
-//             drugs
-//         })
-//     } catch (error) {
-//         console.error(error);
-//         next(error);
-//     }
-// });
-
-// router.get('/search/:search', async (req, res, next) => {
-//     const drugSearch = req.params.search;
-//     try {
-//         // 약물 이름 또는 카테고리가 정확히 일치하는 경우 검색
-//         let drugs = await Drug.find({
-//             $or: [
-//                 { drugName: drugSearch },
-//                 { drugCategory: drugSearch }
-//             ]
-//         });
-
-//         // 검색 결과가 없는 경우 약물 이름에 포함된 경우로 다시 검색
-//         if (drugs.length === 0) {
-//             drugs = await Drug.find({ drugName: { $regex: drugSearch, $options: 'i' } });
-//         }
-
-//         res.render('drugs', {
-//             drugs
-//         });
-//     } catch (error) {
-//         console.error(error);
-//         next(error);
-//     }
-// });
-
 module.exports = router;
