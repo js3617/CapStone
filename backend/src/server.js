@@ -6,6 +6,7 @@ const
     path = require('path'),
     config = require('config'),
     bodyParser = require('body-parser'),
+    fs = require('fs-extra'),
     flash = require('connect-flash'),
     methodOverride = require('method-override'),
     serverConfig = config.get('server');
@@ -29,16 +30,16 @@ app.use(express.json());
 // FrontEnd에서 값을 보내줄 때 body-parser를 사용하여 req.body로 값을 받아올 수 있음.
 app.use(bodyParser.json());
 
-app.use('/images', express.static(path.join(__dirname, 'data/images')));
-app.use(flash());
-app.use(methodOverride('_method'));
-
 /** React와 NodeJS를 연결하기 위한 연결점 
  *  React 연결 시 frontend Directory에서 npm run build 후 backend Directory로 넘어와 npm run dev할 것.
 */
-// app.use(express.static(path.join(__dirname, '../../frontend/build')))
+app.use(express.static(path.join(__dirname, '../../frontend/build')))
 // cors는 다른 도메인 주소끼리 ajax 요청을 주고 받을 때 필요
 app.use(cors());
+
+// app.use('/images', express.static(path.join(__dirname, 'data/images')));
+// app.use(flash());
+// app.use(methodOverride('_method'));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
