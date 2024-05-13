@@ -32,8 +32,11 @@ function API() {
   return (
     <MapDiv
       style={{
-        width:"100%",
-        height: '600px',
+        width:"887px",
+        height: '460px',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
       {error && <div>{error}</div>}
