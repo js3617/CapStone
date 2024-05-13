@@ -22,13 +22,13 @@ function Gnb(){
                     </Link>
                 </div>
                 <div className="navMenu">
-                    <Link to="/product">의약품 검색<hr/></Link>
-                    <Link to="/drug">약국 지도<hr/></Link>
+                    <Link to="/drug">의약품 검색<hr/></Link>
+                    <Link to="/pharmacy">약국 지도<hr/></Link>
                     <Link to="/store">편의점 지도<hr/></Link>
                 </div>
             </div>
         </nav>
-        </>
+        </> 
     )
 }
 
