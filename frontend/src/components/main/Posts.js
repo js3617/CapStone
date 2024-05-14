@@ -19,7 +19,7 @@ const MainContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 15%;
+  justify-content: center;
 `;
 
 const SearchContainer = styled.div`
@@ -80,6 +80,12 @@ function Posts() {
     // 예를 들어, 검색 API 호출 등
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      handleSearch();
+    }
+  };
+
   return (
     <Container>
       <MainWrapper>
@@ -87,7 +93,7 @@ function Posts() {
         <MainContentWrapper>
           <LogoImage src={logo} alt="어디약?" />
           <SearchContainer>
-            <Search value={value} onChange={onChange} placeholder="약, 증상 검색..." />
+            <Search value={value} onChange={onChange} onKeyDown={handleKeyDown} placeholder="약, 증상 검색..." />
             <SearchIcon src={search} alt="돋보기" onClick={handleSearch} />
           </SearchContainer>
         </MainContentWrapper>

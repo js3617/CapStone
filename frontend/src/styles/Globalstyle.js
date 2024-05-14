@@ -43,7 +43,7 @@ const GlobalStyle = createGlobalStyle`
         align-items: center;
         & a{
             margin: 1rem 2rem;
-            font-size: 24px;
+            font-size: 1.5rem;
             justify-content: end;
         }
         & hr{
