@@ -1,44 +1,66 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Container } from '../../styles/styled';
+import { DrugContainer } from '../../styles/styled';
 import Search from '../../components/search/Search';
-import Background from '../background/BackgroundImage';
+// import Background from '../background/BackgroundImage';
 
 const DrugWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
+  width: 90%;
 `;
 
 const DrugCard = styled.div`
   background-color: #e8e8e8;
-  padding: 20px;
-  width: calc(33.3333% - 20px);
+  padding: 10px;
+  width: 30%;
+  height: 280px;
   margin-bottom: 20px;
   border-radius: 30px;
 `;
 
+const ImgCard = styled.div`
+  background-color: #FFFFFF;
+  padding: 10px;
+  width: 250px;
+  height: 250px;
+  border-radius: 20px;
+`;
+
 const DrudImage = styled.img`
-  width: 300px;
-  height: 300px;
+  width: 180px;
+  height: 120px;
+  margin: auto;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+`
+
+const dgName = styled.p`
+  font-size: 1.5rem;
+  justify-content: center;
+  display: flex;
 `
 
 const DrugList = ({ drugList }) => {
   return (
-    <Container>
-      <Background />
+    <DrugContainer>
+      {/* <Background opaque={false}/> */}
       <Search />
       <b>많이 찾는 약</b>
       <DrugWrapper>
         {drugList.map((drug, index) => (
           <DrugCard key={index}>
-            <DrudImage src={drug.drugImage} alt="test" />
-            <p>{drug.drugName}</p>
+            <ImgCard>
+              <DrudImage src={drug.drugImage} alt="test" />
+              <dgName>{drug.drugName}</dgName>
+            </ImgCard>
           </DrugCard>
         ))}
       </DrugWrapper>
-    </Container>
+    </DrugContainer>
   );
 };
 
