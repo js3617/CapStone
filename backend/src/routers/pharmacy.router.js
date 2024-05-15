@@ -3,13 +3,9 @@ const
     Pharmacy = require('../models/pharmacy.model'), 
     router = express.Router();
 
-router.get('/:location', async (req, res, next) => {
-// router.get('/', async (req, res, next) => {
-    // const { lat, lng } = req.body;
+router.post('/', async (req, res, next) => {
     const
-        loc = req.params.location.split(','),
-        lat = parseFloat(loc[0]),
-        lng = parseFloat(loc[1]),
+        { latitude, longitude } = req.body,
         currentTime = new Date(),
         dayOfWeek = ["일", "월", "화", "수", "목", "금", "토"],
         currentDayOfWeek = dayOfWeek[currentTime.getDay()],
@@ -17,7 +13,7 @@ router.get('/:location', async (req, res, next) => {
         currentMinute = currentTime.getMinutes(),
         currentTimeInMinutes = currentHour * 60 + currentMinute;
     
-    if (isNaN(lat) || isNaN(lng)) {
+    if (isNaN(latitude) || isNaN(longitude)) {
         return res.status(400).json({ error: "Invalid location data" });
     }
 
@@ -36,7 +32,7 @@ router.get('/:location', async (req, res, next) => {
                             $near: {
                                 $geometry: {
                                     type: "Point",
-                                    coordinates: [lng, lat] // 경도, 위도 순서
+                                    coordinates: [longitude, latitude] // 경도, 위도 순서
                                 }
                             }
                         }
@@ -46,7 +42,7 @@ router.get('/:location', async (req, res, next) => {
             .limit(10) // 개수 10개 제한
             .exec();
         
-        res.json(pharmacies);
+        res.json({pharmacies});
     } catch (error) {
         console.error(error);
         next(error);
