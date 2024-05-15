@@ -34,7 +34,7 @@ function Posts() {
   return (
     <Container>
       <MainWrapper>
-        <Background/>
+        <Background opaque={true}/>
         <MainContentWrapper>
           <LogoImage src={logo} alt="어디약?" />
           <Search/>
