@@ -1,6 +1,6 @@
 import React from "react";
 import logo from "../../images/캡스톤 어디약.png";
-import medicine from "../../images/medicine.png";
+import Background from "../background/BackgroundImage";
 import { Container } from "../../styles/styled";
 import styled from "styled-components";
 import Search from "../../components/search/Search";
@@ -30,20 +30,11 @@ const LogoImage = styled.img`
   max-height: 100%;
 `;
 
-const BackgroundImage = styled.img`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 80%;
-  margin-top: 10%;
-`;
-
 function Posts() {
   return (
     <Container>
       <MainWrapper>
-        <BackgroundImage src={medicine} alt="배경" />
+        <Background/>
         <MainContentWrapper>
           <LogoImage src={logo} alt="어디약?" />
           <Search/>

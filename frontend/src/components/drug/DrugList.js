@@ -1,27 +1,43 @@
 import React from 'react';
-import { Container } from "../../styles/styled";
-import Search from "../../components/search/Search";
+import styled from 'styled-components';
+import { Container } from '../../styles/styled';
+import Search from '../../components/search/Search';
+import Background from '../background/BackgroundImage';
 
-// DrugList 컴포넌트는 drugList라는 props를 받아와서 약품 목록을 화면에 표시
+const DrugWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const DrugCard = styled.div`
+  background-color: #e8e8e8;
+  padding: 20px;
+  width: calc(33.3333% - 20px);
+  margin-bottom: 20px;
+  border-radius: 30px;
+`;
+
+const DrudImage = styled.img`
+  width: 300px;
+  height: 300px;
+`
+
 const DrugList = ({ drugList }) => {
-    console.log(drugList);
   return (
     <Container>
-      <Search/>
+      <Background />
+      <Search />
       <b>많이 찾는 약</b>
-      {drugList.map((drug, index) => (
-        <div key={index}>
-          <h2>{drug.drugName}</h2>
-          <p><strong>약품 카테고리:</strong> {drug.drugCategory.join(', ')}</p>
-          <p><strong>복약 방법:</strong> {drug.drugDose}</p>
-          <p><strong>주의사항:</strong></p>
-          <ul>
-            {drug.drugCaution.map((caution, idx) => (
-              <li key={idx}>{caution}</li>
-            ))}
-          </ul>
-        </div>
-      ))}
+      <DrugWrapper>
+        {drugList.map((drug, index) => (
+          <DrugCard key={index}>
+            <DrudImage src={drug.drugImage} alt="test" />
+            <p>{drug.drugName}</p>
+          </DrugCard>
+        ))}
+      </DrugWrapper>
     </Container>
   );
 };

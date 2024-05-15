@@ -36,7 +36,7 @@ router.get('/search/:search', async (req, res, next) => {
     const drugSearch = req.params.search;
     try {
         // 약물 이름 또는 카테고리가 정확히 일치하는 경우 검색
-        let drugs = await Drug.find({
+        let drug = await Drug.find({
             $or: [
                 { drugName: drugSearch },
                 { drugCategory: drugSearch }
@@ -45,10 +45,10 @@ router.get('/search/:search', async (req, res, next) => {
 
         // 검색 결과가 없는 경우 약물 이름에 포함된 경우로 다시 검색
         if (drugs.length === 0) {
-            drugs = await Drug.find({ drugName: { $regex: drugSearch, $options: 'i' } });
+            drug = await Drug.find({ drugName: { $regex: drugSearch, $options: 'i' } });
         }
 
-        return res.status(200).json({ success: true, drugs });
+        return res.status(200).json({ success: true, drug });
     } catch (error) {
         console.error(error);
         next(error);
