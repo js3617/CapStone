@@ -1,11 +1,14 @@
 import React from 'react';
+import { Container } from "../../styles/styled";
+import Search from "../../components/search/Search";
 
 // DrugList 컴포넌트는 drugList라는 props를 받아와서 약품 목록을 화면에 표시
 const DrugList = ({ drugList }) => {
     console.log(drugList);
   return (
-    <div>
-      <h1>약품 목록</h1>
+    <Container>
+      <Search/>
+      <b>많이 찾는 약</b>
       {drugList.map((drug, index) => (
         <div key={index}>
           <h2>{drug.drugName}</h2>
@@ -19,7 +22,7 @@ const DrugList = ({ drugList }) => {
           </ul>
         </div>
       ))}
-    </div>
+    </Container>
   );
 };
 
