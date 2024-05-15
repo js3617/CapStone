@@ -4,7 +4,7 @@ import axios from 'axios';
 
 const { naver } = window;
 
-const API = () => {
+const API_store = () => {
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState(null);
 
@@ -54,7 +54,7 @@ const API = () => {
   return <div id="map" style={{ width: '100%', height: '400px' }}></div>;
 };
 
-export default API;
+export default API_store;
 
 
 
