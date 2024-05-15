@@ -28,7 +28,7 @@ function Gnb(){
                 </div>
             </div>
         </nav>
-        </>
+        </> 
     )
 }
 

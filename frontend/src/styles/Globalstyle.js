@@ -30,7 +30,7 @@ const GlobalStyle = createGlobalStyle`
         width: 100%;
         .content{
             width: 100%;
-            height: 100%;
+            height: 120px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -43,7 +43,7 @@ const GlobalStyle = createGlobalStyle`
         align-items: center;
         & a{
             margin: 1rem 2rem;
-            font-size: 24px;
+            font-size: 1.5rem;
             justify-content: end;
         }
         & hr{

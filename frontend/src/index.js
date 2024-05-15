@@ -13,13 +13,13 @@ import { BrowserRouter,Routes,Route } from 'react-router-dom';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
-    <App />
     <Routes>
       <Route path='/' element={<Home/>} />
       <Route path='/drug' element={<Drug/>} />
       <Route path='/pharmacy' element={<Pharmacy/>} />
       <Route path='/store' element={<Store/>} />
     </Routes>
+    <App />
   </BrowserRouter>
   
 );
