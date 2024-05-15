@@ -11,4 +11,14 @@ const Container = styled.div`
     min-height: calc(100vh - 180px);
 `
 
-export {Container};
+const DrugContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 1440px;
+    min-height: calc(100vh - 180px);
+`
+
+export {Container, DrugContainer};
