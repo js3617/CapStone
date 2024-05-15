@@ -13,7 +13,7 @@ function Drug() {
           throw new Error('API 호출에 실패했습니다.');
         }
         const data = await response.json();
-        setDrugList(data.drugs);
+        setDrugList(data.drug);
       } catch (error) {
         console.error(error);
         // 에러 처리 로직 추가
