@@ -1,9 +1,9 @@
 import React from "react";
-import API from '../hooks/NaverAPI';
+import API_store from "../hooks/NaverAPI_store";
 
 function Store(){
     return(
-        <API/>
+        <API_store/>
     )
 }
 
