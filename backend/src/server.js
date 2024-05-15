@@ -37,12 +37,12 @@ app.use(express.static(path.join(__dirname, '../../frontend/build')))
 // cors는 다른 도메인 주소끼리 ajax 요청을 주고 받을 때 필요
 app.use(cors());
 
-// app.use('/images', express.static(path.join(__dirname, 'data/images')));
+app.use('/images', express.static(path.join(__dirname, 'data/images')));
 // app.use(flash());
 // app.use(methodOverride('_method'));
 
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+// app.set('views', path.join(__dirname, 'views'));
+// app.set('view engine', 'ejs');
 
 // 라우터 사용 설정
 app.use('/', mainRouter);
