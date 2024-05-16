@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import searchIcon from "../../images/돋보기.png";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom"; // React Router의 useNavigate를 import
 
 const SearchContainer = styled.div`
   position: relative;
@@ -29,19 +30,18 @@ const SearchIcon = styled.img`
   transform: translateY(-50%);
 `;
 
-
 function SearchComponents() {
   const [value, setValue] = useState("");
+  const navigate = useNavigate();
 
   const onChange = (e) => {
-    console.log(e.target.value);
     setValue(e.target.value);
   };
 
   const handleSearch = () => {
-    console.log("검색:", value);
-    // 여기에 검색을 위한 로직을 추가
-    // 예를 들어, 검색 API 호출 등
+    // 검색한 결과를 DrugList 페이지로 전달하여 해당 약을 표시
+    navigate(`/drug/search/${value}`);
+    console.log(value)
   };
 
   const handleKeyDown = (e) => {
@@ -52,8 +52,8 @@ function SearchComponents() {
 
   return (
     <SearchContainer>
-        <Search value={value} onChange={onChange} onKeyDown={handleKeyDown} placeholder="약, 증상 검색..." />
-        <SearchIcon src={searchIcon} alt="돋보기" onClick={handleSearch} />
+      <Search value={value} onChange={onChange} onKeyDown={handleKeyDown} placeholder="약, 증상 검색..." />
+      <SearchIcon src={searchIcon} alt="돋보기" onClick={handleSearch} />
     </SearchContainer>
   );
 }
