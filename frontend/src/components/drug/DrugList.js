@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DrugContainer } from '../../styles/styled';
+import { DrugContainer, Text } from '../../styles/styled';
 import Search from '../../components/search/Search';
 // import Background from '../background/BackgroundImage';
 
@@ -9,39 +9,31 @@ const DrugWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
-  width: 90%;
+  width: 60%;
 `;
 
 const DrugCard = styled.div`
   background-color: #e8e8e8;
   padding: 10px;
-  width: 30%;
-  height: 280px;
   margin-bottom: 20px;
   border-radius: 30px;
+  flex: 1;
+  margin-right: 10px;
 `;
 
 const ImgCard = styled.div`
   background-color: #FFFFFF;
   padding: 10px;
-  width: 250px;
-  height: 250px;
   border-radius: 20px;
 `;
 
-const DrudImage = styled.img`
+const DrugImage = styled.img`
   width: 180px;
   height: 120px;
   margin: auto;
   border-radius: 20px;
   display: flex;
   justify-content: center;
-`
-
-const dgName = styled.p`
-  font-size: 1.5rem;
-  justify-content: center;
-  display: flex;
 `
 
 const DrugList = ({ drugList }) => {
@@ -54,8 +46,8 @@ const DrugList = ({ drugList }) => {
         {drugList.map((drug, index) => (
           <DrugCard key={index}>
             <ImgCard>
-              <DrudImage src={drug.drugImage} alt="test" />
-              <dgName>{drug.drugName}</dgName>
+              <DrugImage src={drug.drugImage} alt="test" />
+              <Text>{drug.drugName}</Text>
             </ImgCard>
           </DrugCard>
         ))}

@@ -1,5 +1,11 @@
 import styled from "styled-components";
 
+const Text = styled.p`
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+`
+
 const Container = styled.div`
     width: 100%;
     height: 90vh;
@@ -14,6 +20,7 @@ const Container = styled.div`
 const DrugContainer = styled.div`
     width: 100%;
     display: flex;
+    margin-top: 8%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -21,4 +28,4 @@ const DrugContainer = styled.div`
     min-height: calc(100vh - 180px);
 `
 
-export {Container, DrugContainer};
+export {Container, DrugContainer, Text};
