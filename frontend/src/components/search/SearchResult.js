@@ -35,24 +35,14 @@ const DrudImage = styled.img`
   justify-content: center;
 `;
 
-const SearchResults = ({ searchResults, searchKeyword }) => {
-    // 검색 키워드를 받아 해당 카테고리를 포함하는 약을 필터링하는 함수
-    const filterDrugsByCategory = (drugs, keyword) => {
-    console.log('drugs:', drugs);
-    console.log('keyword:', keyword);
-      return drugs.filter(drug => drug.drugCategory.includes(keyword));
-    };
-  
-    // 검색 키워드를 기준으로 약을 필터링
-    const filteredDrugs = filterDrugsByCategory(searchResults, searchKeyword);
-
+const SearchResults = ({ drugList }) => {
   return (
     <DrugContainer>
       <Search />
       <b>검색 결과</b>
       <DrugWrapper>
-        {filteredDrugs.map((drug, index) => (
-          <DrugCard key={index}>
+        {drugList.map((drug) => (
+          <DrugCard key={drug._id}>
             <ImgCard>
               <DrudImage src={drug.drugImage} alt="test" />
               <Text>{drug.drugName}</Text>

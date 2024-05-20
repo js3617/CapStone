@@ -13,7 +13,6 @@ const Container = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 1440px;
     min-height: calc(100vh - 180px);
 `
 
@@ -24,7 +23,6 @@ const DrugContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 1440px;
     min-height: calc(100vh - 180px);
 `
 
