@@ -11,7 +11,7 @@ router.post('/', async (req, res, next) => {
         currentDayOfWeek = dayOfWeek[currentTime.getDay()],
         currentHour = currentTime.getHours(),
         currentMinute = currentTime.getMinutes(),
-        currentTimeInMinutes = currentHour * 60 + currentMinute;
+        currentTimeInMinutes = currentHour * 100 + currentMinute;
     
     if (isNaN(latitude) || isNaN(longitude)) {
         return res.status(400).json({ error: "Invalid location data" });
@@ -21,13 +21,15 @@ router.post('/', async (req, res, next) => {
         const pharmacies = await Pharmacy.find({
             $and: [
                     {
-                        // 현재 요일에 영업 중인지 확인합니다.
-                        'openingHours.dayOfWeek': currentDayOfWeek,
-                        'openingHours.openingTime': { $lte: currentTimeInMinutes },
-                        'openingHours.closingTime': { $gte: currentTimeInMinutes }
+                        openingHours: {
+                            $elemMatch: {
+                                dayOfWeek: currentDayOfWeek,
+                                openingTime: { $lte: currentTimeInMinutes },
+                                closingTime: { $gte: currentTimeInMinutes }
+                            }
+                        }
                     },
                     {
-                        // 해당 좌표에서 가까운 순으로 정렬
                         location: {
                             $near: {
                                 $geometry: {
@@ -41,7 +43,7 @@ router.post('/', async (req, res, next) => {
             })
             .limit(10) // 개수 10개 제한
             .exec();
-        
+
         res.json({pharmacies});
     } catch (error) {
         console.error(error);
