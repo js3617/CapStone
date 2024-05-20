@@ -44,11 +44,11 @@ router.get('/search/:search', async (req, res, next) => {
         });
 
         // 검색 결과가 없는 경우 약물 이름에 포함된 경우로 다시 검색
-        if (drugs.length === 0) {
+        if (drug.length === 0) {
             drug = await Drug.find({ drugName: { $regex: drugSearch, $options: 'i' } });
         }
 
-        return res.status(200).json({ success: true, drug });
+        return res.status(200).json(drug);
     } catch (error) {
         console.error(error);
         next(error);
