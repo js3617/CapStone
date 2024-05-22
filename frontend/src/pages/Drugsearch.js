@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 import SearchResults from '../components/search/SearchResult';
 import { useParams } from 'react-router-dom';
-import { useParams } from 'react-router-dom';
 
 function DrugSearch() {
   const {query} = useParams();
@@ -12,12 +11,10 @@ function DrugSearch() {
     const fetchDrugList = async () => {
       try {
         const response = await fetch(`/drug/search/${query}`); // API 엔드포인트에 따라 URL을 수정해야 합니다.
-        const response = await fetch(`/drug/search/${query}`); // API 엔드포인트에 따라 URL을 수정해야 합니다.
         if (!response.ok) {
           throw new Error('API 호출에 실패했습니다.');
         }
         const data = await response.json();
-        setDrugList(data);
         setDrugList(data);
       } catch (error) {
         console.error(error);
@@ -25,7 +22,6 @@ function DrugSearch() {
       }
     };
     fetchDrugList();
-  }, [query]);
   }, [query]);
   return (
     <div>
@@ -35,5 +31,4 @@ function DrugSearch() {
   );
 }
 
-export default DrugSearch;
 export default DrugSearch;
