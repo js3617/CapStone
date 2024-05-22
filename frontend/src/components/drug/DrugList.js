@@ -1,8 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DrugContainer, Text } from '../../styles/styled';
+import { DrugContainer, Text, DrugCard, DrugImage, ImgCard } from '../../styles/Drugstyled';
 import Search from '../../components/search/Search';
-// import Background from '../background/BackgroundImage';
+import LongBackground from '../background/LongBackgroundImage';
+import { useDrugDetails, DrugDetails } from './DrugDetail';
+
+// Styled components
+const MainWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
 
 const DrugWrapper = styled.div`
   display: flex;
@@ -10,48 +21,32 @@ const DrugWrapper = styled.div`
   justify-content: space-evenly;
   align-items: center;
   width: 60%;
+  position: relative;
+  visibility: ${props => (props.hidden ? 'hidden' : 'visible')};
 `;
-
-const DrugCard = styled.div`
-  background-color: #e8e8e8;
-  padding: 10px;
-  margin-bottom: 20px;
-  border-radius: 30px;
-  flex: 1;
-  margin-right: 10px;
-`;
-
-const ImgCard = styled.div`
-  background-color: #FFFFFF;
-  padding: 10px;
-  border-radius: 20px;
-`;
-
-const DrugImage = styled.img`
-  width: 180px;
-  height: 120px;
-  margin: auto;
-  border-radius: 20px;
-  display: flex;
-  justify-content: center;
-`
 
 const DrugList = ({ drugList }) => {
+  const { selectedDrug, handleCardClick, handleCloseDetails } = useDrugDetails();
+
   return (
     <DrugContainer>
-      {/* <Background opaque={false}/> */}
-      <Search />
-      <b>많이 찾는 약</b>
-      <DrugWrapper>
-        {drugList.map((drug, index) => (
-          <DrugCard key={index}>
-            <ImgCard>
-              <DrugImage src={drug.drugImage} alt="test" />
-              <Text>{drug.drugName}</Text>
-            </ImgCard>
-          </DrugCard>
-        ))}
-      </DrugWrapper>
+      <LongBackground/>
+      <MainWrapper>
+      {!selectedDrug && <Search />}
+        <DrugWrapper hidden={!!selectedDrug}>
+          {drugList.map((drug, index) => (
+            <DrugCard key={index} onClick={() => handleCardClick(drug)}>
+              <ImgCard>
+                <DrugImage src={drug.drugImage} alt="drug" />
+                <Text>{drug.drugName}</Text>
+              </ImgCard>
+            </DrugCard>
+          ))}
+        </DrugWrapper>
+        {selectedDrug && (
+          <DrugDetails selectedDrug={selectedDrug} onClose={handleCloseDetails} />
+        )}
+      </MainWrapper>
     </DrugContainer>
   );
 };
