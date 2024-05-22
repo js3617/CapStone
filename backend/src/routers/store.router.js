@@ -4,10 +4,31 @@ const Store = require('../models/store.model');
 
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
+    const { latitude, longitude } = req.body;
+    try {
+        const stores = await Store.find({
+                location: {
+                    $near: {
+                        $geometry: {
+                            type: "Point",
+                            coordinates: [longitude, latitude] // 경도, 위도 순서
+                        }
+                    }
+                }
+            })
+            .limit(10)
+            .exec();
+        res.json({stores});
+    } catch (error) {
+        res.status(500).send(err);
+    }
+})
+
+router.get('/stock', async (req, res, next) => {
     // const { drugID } = req.query;
     // const url = `https://www.pocketcu.co.kr/search/stock?isRecommend=Y&recommend_id=&searchWord=%EB%B6%80%EC%82%B0%EC%A7%84%EA%B5%AC&item_cd=${drugID}`;
-    const url = `https://www.pocketcu.co.kr/search/stock?isRecommend=Y&recommend_id=&searchWord=%EB%B6%80%EC%82%B0%EC%A7%84%EA%B5%AC&item_cd=8806521017242`;
+    const url = `https://www.pocketcu.co.kr/search/stock?isRecommend=Y&recommend_id=&searchWord=%EA%B0%80%EC%95%BC%EB%8F%99&item_cd=8806521017242`;
 
     let browser;
     try {
@@ -62,7 +83,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/stock', async (req, res, next) => {
     const { latitude, longitude } = req.body;
 
     try {
@@ -81,7 +102,7 @@ router.post('/', async (req, res, next) => {
         .exec();
 
         // GET 라우트를 통해 재고 데이터를 가져옴
-        const stockResponse = await fetch('http://localhost:3000/store');
+        const stockResponse = await fetch('http://localhost:3000/store/stock');
         const stockData = await stockResponse.json();
 
         // 재고가 있는 편의점 중 "씨유"로 시작하는 편의점만 필터링
