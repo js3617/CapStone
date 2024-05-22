@@ -48,7 +48,7 @@ router.get('/search/:search', async (req, res, next) => {
             drug = await Drug.find({ drugName: { $regex: drugSearch, $options: 'i' } });
         }
 
-        return res.status(200).json( drug );
+        return res.status(200).json(drug);
     } catch (error) {
         console.error(error);
         next(error);

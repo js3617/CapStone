@@ -18,6 +18,10 @@ const DrugSchema = new Schema({
         type: [String],
         require: true
     },
+    drugID: {
+        type: String,
+        required: true
+    },
     drugImage: {
         type: String
     }

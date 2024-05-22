@@ -7,4 +7,5 @@
 # Config Document
 */config/
 
-**/data/    
+# Data Directory
+**/data/

@@ -13,8 +13,7 @@ const StoreSchema = new Schema({
     location: {
         type: { type: String, default: 'Point' },
         coordinates: [Number] // [경도, 위도]
-    },
-    storeId: {type: String, default: null }
+    }
 });
 
 StoreSchema.index({ location: '2dsphere'})

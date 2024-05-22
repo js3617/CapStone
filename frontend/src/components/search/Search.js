@@ -41,7 +41,6 @@ function SearchComponents() {
   const handleSearch = () => {
     // 검색한 결과를 DrugList 페이지로 전달하여 해당 약을 표시
     navigate(`/drug/search/${value}`);
-    console.log(value)
   };
 
   const handleKeyDown = (e) => {
