@@ -44,7 +44,7 @@ const DrugDetailsWrapper = styled.div`
   padding: 40px;
   border-radius: 30px;
   position: relative;
-  top: 20%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%);
   width: 1054px;
