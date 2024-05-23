@@ -24,7 +24,7 @@ const DrugWrapper = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   align-items: center;
-  width: 70%;
+  width: 800px;
   visibility: ${props => (props.hidden ? 'hidden' : 'visible')};
   z-index: 10;
 `;
