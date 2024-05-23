@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DrugContainer, Text, DrugCard, DrugImage, ImgCard } from '../../styles/Drugstyled';
+import { DrugContainer, Text, DrugCard, DrugImage, ImgCard, DrugWrapper } from '../../styles/Drugstyled';
 import Search from '../../components/search/Search';
 import LongBackground from '../background/LongBackgroundImage';
 import { useDrugDetails, DrugDetails } from './DrugDetail';
@@ -13,16 +13,6 @@ const MainWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-`;
-
-const DrugWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-  align-items: center;
-  width: 60%;
-  position: relative;
-  visibility: ${props => (props.hidden ? 'hidden' : 'visible')};
 `;
 
 const DrugList = ({ drugList }) => {
