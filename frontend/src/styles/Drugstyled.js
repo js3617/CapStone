@@ -4,18 +4,30 @@ const Text = styled.p`
     font-size: 1.2rem;
     display: flex;
     justify-content: center;
-`
+`;
+
 const DetailText = styled.p`
     font-size: 1.2rem;
     display: flex;
     text-align: left;
     line-height: 2;
-`
+`;
+
 const DetailBText = styled.b`
     font-size: 1.2rem;
     display: flex;
     text-align: left;
-`
+`;
+
+const DrugWrapper = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: center;
+  width: 70%;
+  visibility: ${props => (props.hidden ? 'hidden' : 'visible')};
+  z-index: 10;
+`;
 
 const DrugContainer = styled.div`
     width: 100%;
@@ -25,21 +37,23 @@ const DrugContainer = styled.div`
     align-items: center;
     justify-content: center;
     min-height: calc(100vh - 180px);
-`
+`;
+
 const DrugDetailsWrapper = styled.div`
   background-color: #FFFFFF;
   padding: 40px;
   border-radius: 30px;
-  position: absolute;
+  position: relative;
   top: 20%;
   left: 50%;
   transform: translate(-50%);
   width: 1054px;
   z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const CloseButton = styled.button`
-  background-color:#FFFFFF;
+  background-color: #FFFFFF;
   color: #000000;
   border: none;
   border-radius: 50%;
@@ -77,13 +91,15 @@ const DrugImage = styled.img`
   justify-content: center;
 `;
 
-export {DrugContainer, 
-    Text, 
-    DetailText, 
-    DetailBText, 
-    DrugDetailsWrapper, 
+export {
+    DrugContainer,
+    Text,
+    DetailText,
+    DetailBText,
+    DrugDetailsWrapper,
     CloseButton,
     DrugCard,
     DrugImage,
-    ImgCard
+    ImgCard,
+    DrugWrapper,
 };
