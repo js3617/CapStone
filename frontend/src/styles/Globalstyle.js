@@ -18,6 +18,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     a{
+        z-index: 10;
         color: var(--text-color)
     }
     nav{

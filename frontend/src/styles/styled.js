@@ -10,4 +10,28 @@ const Container = styled.div`
     min-height: calc(100vh - 180px);
 `
 
-export {Container};
+const Name = styled.p`
+    color: #CE3737;
+    font-size: 1.2rem;
+`
+
+const LocationText = styled.p`
+    font-size: 1.2rem;
+    color: #000000;
+`
+
+const ListButton = styled.div`
+    display: flex;
+    width: 18.75rem;
+    height: 5rem;
+    border-radius: 100px;
+    background-color: #fff;
+    align-items: center;
+    padding: 0 20px;
+    font-size: 32px;
+    font-weight: 700;
+    justify-content: center;
+    margin: 30px 0 30px 0;
+`
+
+export {Container, LocationText, Name, ListButton};
