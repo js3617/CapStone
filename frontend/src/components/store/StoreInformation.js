@@ -1,42 +1,42 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// src/components/StoreInformation.js
+import React from 'react';
+import useStores from '../../hooks/useStores';
+import styled from 'styled-components';
+import { LocationText, Name } from '../../styles/styled';
+
+const StoreContainer = styled.div`
+    display: flex;
+    width: 840px;
+    align-items: center;
+    background-color: #E8E8E8;
+    padding: 20px;
+    border-radius: 30px 30px 0 0;
+    z-index:10;
+`;
+
+const StoreList = styled.ul`
+    list-style: none;
+    padding: 0;
+`;
+
+const StoreItem = styled.li`
+    margin-bottom: 10px;
+`;
 
 const StoreInformation = () => {
-    const [stores, setStores] = useState([]);
-
-    useEffect(() => {
-        fetchStores();
-    }, []);
-
-    const fetchStores = async () => {
-        try {
-            // 위치 정보 가져오기
-            navigator.geolocation.getCurrentPosition(async (position) => {
-                const { latitude, longitude } = position.coords;
-    
-                // 위도와 경도를 사용하여 편의점 정보를 요청
-                const response = await axios.post('http://localhost:3000/store', {
-                    latitude,
-                    longitude
-                });
-                setStores(response.data.stores);
-            });
-        } catch (error) {
-            console.error('Error fetching stores:', error);
-        }
-    };
+    const stores = useStores();
 
     return (
-        <div>
-            <ul>
+        <StoreContainer>
+            <StoreList>
                 {stores.map((store, index) => (
-                    <li key={index}>
-                        <strong>Name:</strong> {store.storeName}<br />
-                        <strong>Address:</strong> {store.storeAddr}<br />
-                    </li>
+                    <StoreItem key={index}>
+                        <Name>{store.storeName}</Name>
+                        <LocationText>{store.storeAddr}</LocationText>
+                    </StoreItem>
                 ))}
-            </ul>
-        </div>
+            </StoreList>
+        </StoreContainer>
     );
 };
 
