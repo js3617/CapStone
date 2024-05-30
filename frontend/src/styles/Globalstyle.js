@@ -18,6 +18,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     a{
+        z-index: 10;
         color: var(--text-color)
     }
     nav{
@@ -50,6 +51,7 @@ const GlobalStyle = createGlobalStyle`
             border: 0;
             background-color: white;
             height: 1vh;
+            box-shadow: 2px 2px 2px gray;
         }
     }
     

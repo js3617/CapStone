@@ -10,7 +10,7 @@ const BackgroundImage = styled.img`
   width: 100%;
   height: 80%;
   margin-top: 10%;
-  opacity: ${(props) => (props.opaque ? 1 : 0.5)};
+  object-fit: fill;
 `;
 
 function Background() {

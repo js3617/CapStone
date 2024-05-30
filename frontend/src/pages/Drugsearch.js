@@ -4,7 +4,7 @@ import SearchResults from '../components/search/SearchResult';
 import { useParams } from 'react-router-dom';
 
 function DrugSearch() {
-  const { query } = useParams();
+  const {query} = useParams();
   const [drugList, setDrugList] = useState([]);
 
   useEffect(() => {

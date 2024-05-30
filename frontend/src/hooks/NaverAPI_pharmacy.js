@@ -1,6 +1,20 @@
 // client/src/Map.js
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
+
+const MapContainer = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const MapElement = styled.div`
+  width: 880px;
+  height: 460px;
+`;
 
 const { naver } = window;
 
@@ -51,7 +65,11 @@ const API_pharmacy = () => {
     }
   }, [markers, map]);
 
-  return <div id="map" style={{ width: '100%', height: '400px', marginTop: '10%' }}></div>;
+  return (
+    <MapContainer>
+      <MapElement id="map" />
+    </MapContainer>
+  )
 };
 
 export default API_pharmacy;
