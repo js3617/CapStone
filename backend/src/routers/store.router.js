@@ -88,6 +88,10 @@ router.post('/stock', async (req, res, next) => {
         .exec();
 
         const filteredStores = nearbyStores.filter(store => {
+            if (!store.storeName.startsWith('씨유')) {
+                return false;
+            }
+
             const storeNameNormalized = store.storeName.replace(/\s/g, '').toLowerCase();
             const stockNames = storeStocks.map(stock => stock.name.replace(/\s/g, '').toLowerCase());
 
