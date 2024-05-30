@@ -1,44 +1,54 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// src/components/PharmacyInformation.js
+import React from 'react';
+import usePharmacies from '../../hooks/usePharmacies';
+import { BsTelephone } from 'react-icons/bs';
+import { LocationText, Name } from '../../styles/styled';
+import styled from 'styled-components';
+
+const PharmacyContainer = styled.div`
+    display: flex;
+    width: 840px;
+    align-items: center;
+    background-color: #E8E8E8;
+    border-radius: 30px 30px 0 0;
+    z-index:10;
+`;
+
+const PharmacyList = styled.ul`
+    list-style: none;
+    padding: 0;
+`;
+
+const PharmacyItem = styled.li`
+    margin-bottom: 10px;
+`;
+
+const PhoneLink = styled.a`
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    margin-left: 10px;
+`;
 
 const PharmacyInformation = () => {
-    const [pharmacies, setPharmacies] = useState([]);
-
-    useEffect(() => {
-        fetchPharmacies();
-    }, []);
-
-    const fetchPharmacies = async () => {
-        try {
-            // 위치 정보 가져오기
-            navigator.geolocation.getCurrentPosition(async (position) => {
-                const { latitude, longitude } = position.coords;
-
-                // 위도와 경도를 사용하여 약국 정보를 요청
-                const response = await axios.post('http://localhost:3000/pharmacy', {
-                    latitude,
-                    longitude
-                });
-                setPharmacies(response.data.pharmacies);
-            });
-        } catch (error) {
-            console.error('Error fetching pharmacies:', error);
-        }
-    };
+    const pharmacies = usePharmacies();
 
     return (
-        <div>
-            <ul>
+        <PharmacyContainer>
+            <PharmacyList>
                 {pharmacies.map((pharmacy, index) => (
-                    <li key={index}>
-                        <strong>Name:</strong> {pharmacy.dutyName}<br />
-                        <strong>Address:</strong> {pharmacy.dutyAddr}<br />
-                        <strong>Phone:</strong> {pharmacy.dutyTel1}<br />
-                        <strong>Map:</strong> <img src={pharmacy.dutyMapimg} alt={pharmacy.dutyName} /><br />
-                    </li>
+                    <PharmacyItem key={index}>
+                        <div>
+                            <Name>{pharmacy.dutyName}</Name>
+                            <LocationText>{pharmacy.dutyAddr}</LocationText>
+                        </div>
+                        <PhoneLink href={`tel:${pharmacy.dutyTel1}`}>
+                            <BsTelephone />
+                        </PhoneLink>
+                    </PharmacyItem>
                 ))}
-            </ul>
-        </div>
+            </PharmacyList>
+        </PharmacyContainer>
     );
 };
 
