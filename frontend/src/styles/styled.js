@@ -32,6 +32,7 @@ const ListButton = styled.div`
     font-weight: 700;
     justify-content: center;
     margin: 30px 0 30px 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `
 
 export {Container, LocationText, Name, ListButton};
