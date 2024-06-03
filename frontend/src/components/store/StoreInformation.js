@@ -11,16 +11,23 @@ const StoreContainer = styled.div`
     background-color: #E8E8E8;
     padding: 20px;
     border-radius: 30px 30px 0 0;
-    z-index:10;
+    z-index: 100;
+    position: relative;
+    top: -30px;
 `;
 
 const StoreList = styled.ul`
     list-style: none;
     padding: 0;
+    width: 100%;
 `;
 
 const StoreItem = styled.li`
-    margin-bottom: 10px;
+    border-bottom: 1px solid #FFFFFF;
+    align-items: center;
+    &:last-child {
+        border-bottom: none; // 마지막 항목에는 구분선 없음
+    }
 `;
 
 const StoreInformation = () => {
