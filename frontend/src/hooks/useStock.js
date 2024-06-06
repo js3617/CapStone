@@ -1,25 +1,44 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
 
-const { naver } = window;
 
-const useStock = (latitude, longitude) => {
-    const mapRef = useRef(null);
-    const [map, setMap] = useState(null);
+const useStock = (drugID) => {
+  const [stores, setStores] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const mapRef = useRef(null);
 
-    useEffect(() => {
-        if (!mapRef.current) {
-            console.error('Map container not found');
-            return;
-        }
-        const mapOptions = {
-            center: new naver.maps.LatLng(latitude, longitude),
-            zoom: 15
-        };
-        const mapInstance = new naver.maps.Map(mapRef.current, mapOptions);
-        setMap(mapInstance);
-    }, [latitude, longitude]);
+  useEffect(() => {
+    const fetchStores = async () => {
+      setLoading(true);
+      try {
+        const { coords } = await new Promise((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        });
 
-    return [map, mapRef];
+        const { latitude, longitude } = coords;
+
+        const response = await axios.post('http://localhost:3000/store/stock', {
+          latitude,
+          longitude,
+          drugID,
+        });
+
+        setStores(response.data.stores);
+        setLoading(false);
+
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
+    };
+
+    if (drugID) {
+      fetchStores();
+    }
+  }, [drugID]);
+
+  return { mapRef, stores, loading, error };
 };
 
 export default useStock;
