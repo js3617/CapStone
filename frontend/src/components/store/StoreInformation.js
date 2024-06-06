@@ -1,11 +1,12 @@
-// src/components/StoreInformation.js
 import React from 'react';
-import useStores from '../../hooks/useStores';
 import styled from 'styled-components';
 import { LocationText, Name } from '../../styles/styled';
+import useStores from '../../hooks/useStores';
+//import useCategories from '../../hooks/useCategories';
 
 const StoreContainer = styled.div`
     display: flex;
+    flex-direction: column;
     width: 840px;
     align-items: center;
     background-color: #E8E8E8;
@@ -26,17 +27,20 @@ const StoreItem = styled.li`
     border-bottom: 1px solid #FFFFFF;
     align-items: center;
     &:last-child {
-        border-bottom: none; // 마지막 항목에는 구분선 없음
+        border-bottom: none;
     }
 `;
 
-const StoreInformation = () => {
+const StoreInformation = ({ selectedCategory }) => {
     const stores = useStores();
+    const filteredStores = selectedCategory === '전체'
+        ? stores
+        : stores.filter(store => store.storeName.includes(selectedCategory));
 
     return (
         <StoreContainer>
             <StoreList>
-                {stores.map((store, index) => (
+                {filteredStores.map((store, index) => (
                     <StoreItem key={index}>
                         <Name>{store.storeName}</Name>
                         <LocationText>{store.storeAddr}</LocationText>
