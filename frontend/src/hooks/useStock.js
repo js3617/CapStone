@@ -63,7 +63,19 @@ const useStock = (drugID) => {
       alert("Geolocation is not supported by this browser.");
       setLoading(false);
     }
-  }, [drugID, map]);
+  }, [drugID]);
+
+  useEffect(() => {
+    if (map && stores.length > 0) {
+      stores.forEach(store => {
+        new naver.maps.Marker({
+          position: new naver.maps.LatLng(store.location.coordinates[1], store.location.coordinates[0]),
+          map: map,
+          title: store.storeName,
+        });
+      });
+    }
+  }, [map, stores]);
 
   return { map, mapRef, stores, loading, error };
 };
