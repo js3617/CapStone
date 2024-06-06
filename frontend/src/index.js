@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import DrugSearch from './pages/Drugsearch';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
+import Stock from './pages/Stock';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -20,6 +21,7 @@ root.render(
       <Route path='/pharmacy' element={<Pharmacy/>} />
       <Route path='/store' element={<Store/>} />
       <Route path='/drug/search/:query' element={<DrugSearch />} />
+      <Route path="/store/stock/:id" element={<Stock/>} />
     </Routes>
     <App />
   </BrowserRouter>

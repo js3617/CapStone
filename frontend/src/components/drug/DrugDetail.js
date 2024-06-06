@@ -28,6 +28,7 @@ const Pillbutton = styled.div`
   position: absolute;
   bottom: -7rem;
   right: 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const Dividing = styled.div`
@@ -68,7 +69,7 @@ const DrugDetails = ({ selectedDrug, onClose }) => {
         <Pillbutton>
           <Link to="/pharmacy">약국</Link>
           <Dividing />
-          <Link to="/store">편의점</Link>
+          <Link to={`/store/stock/${selectedDrug.drugID}`}>편의점</Link>
         </Pillbutton>
       </DrugDetailsWrapper>
     </Detailcontainer>

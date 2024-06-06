@@ -59,7 +59,13 @@ const API_pharmacy = () => {
         new naver.maps.Marker({
           position: new naver.maps.LatLng(marker.location.coordinates[1], marker.location.coordinates[0]),
           map: map,
-          title: marker.name
+          title: marker.name,
+          icon: {
+            url: '/images/redmarker.png',
+            size: new naver.maps.Size(22, 36),
+            origin: new naver.maps.Point(0, 0),
+            anchor: new naver.maps.Point(11, 35)
+        }
         });
       });
     }

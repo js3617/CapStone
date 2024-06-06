@@ -1,11 +1,14 @@
-import React from "react";
+// client/src/pages/Store.js
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import API_store from "../hooks/NaverAPI_store";
-import StoreInformation from "../components/store/StoreInformation"
+import StoreInformation from "../components/store/StoreInformation";
 import SearchComponents from "../components/search/Search";
-import LongBackground from '../components/background/LongBackgroundImage'
+import Category from "../components/store/Categories";
+import LongBackground from '../components/background/LongBackgroundImage';
 import styled from 'styled-components';
 import { ListButton } from "../styles/styled";
+import useStores from '../hooks/useStores';
 
 const StorePageContainer = styled.div`
     display: flex;
@@ -14,19 +17,37 @@ const StorePageContainer = styled.div`
     padding-top: 8%;
 `;
 
-function Store(){
+function Store() {
+    const stores = useStores();
+    const [selectedCategory, setSelectedCategory] = useState('전체');
+    const [categories, setCategories] = useState(['전체']);
 
-    return(
+    useEffect(() => {
+        const uniqueCategories = new Set(['전체']);
+        stores.forEach(store => {
+            if (store.storeName.includes('씨유')) uniqueCategories.add('씨유');
+            else if (store.storeName.includes('GS25')) uniqueCategories.add('GS25');
+            else if (store.storeName.includes('이마트24')) uniqueCategories.add('이마트24');
+        });
+        setCategories([...uniqueCategories]);
+    }, [stores]);
+
+    return (
         <StorePageContainer>
-            <LongBackground/>
-            <SearchComponents/>
-            <API_store/>
-            <StoreInformation/>
+            <LongBackground />
+            <SearchComponents />
+            <Category
+                categories={categories}
+                selectedCategory={selectedCategory}
+                setSelectedCategory={setSelectedCategory}
+            />
+            <API_store />
+            <StoreInformation selectedCategory={selectedCategory} />
             <Link to="/drug">
                 <ListButton>의약품 목록</ListButton>
             </Link>
         </StorePageContainer>
-    )
+    );
 }
 
 export default Store;

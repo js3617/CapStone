@@ -74,6 +74,7 @@ const DrugCard = styled.div`
   flex: 1;
   margin-right: 10px;
   cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const ImgCard = styled.div`

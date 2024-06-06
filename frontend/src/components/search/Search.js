@@ -19,6 +19,7 @@ const Search = styled.input`
   border: none;
   padding-left: 20px;
   padding-right: 40px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
 const SearchIcon = styled.img`
