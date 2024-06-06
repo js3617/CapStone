@@ -69,7 +69,7 @@ const DrugDetails = ({ selectedDrug, onClose }) => {
         <Pillbutton>
           <Link to="/pharmacy">약국</Link>
           <Dividing />
-          <Link to="/stock/${selectedDrug.id}">편의점</Link>
+          <Link to={`/store/stock/${selectedDrug.drugID}`}>편의점</Link>
         </Pillbutton>
       </DrugDetailsWrapper>
     </Detailcontainer>
