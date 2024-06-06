@@ -1,44 +1,71 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 
+const { naver } = window;
 
 const useStock = (drugID) => {
+  const mapRef = useRef(null);
+  const [map, setMap] = useState(null);
   const [stores, setStores] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const mapRef = useRef(null);
 
   useEffect(() => {
-    const fetchStores = async () => {
-      setLoading(true);
+    const initializeMap = (latitude, longitude) => {
+      if (!mapRef.current) {
+        console.error('Map container not found');
+        return;
+      }
+      const mapOptions = {
+        center: new naver.maps.LatLng(latitude, longitude),
+        zoom: 15,
+      };
+      const mapInstance = new naver.maps.Map(mapRef.current, mapOptions);
+      setMap(mapInstance);
+    };
+
+    const fetchStockData = async (latitude, longitude, drugID) => {
       try {
-        const { coords } = await new Promise((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(resolve, reject);
-        });
-
-        const { latitude, longitude } = coords;
-
-        const response = await axios.post('http://localhost:3000/store/stock', {
+        const response = await axios.post(`http://localhost:3000/store/stock`, {
           latitude,
           longitude,
           drugID,
         });
-
         setStores(response.data.stores);
-        setLoading(false);
-
+        if (map) {
+          response.data.stores.forEach(store => {
+            new naver.maps.Marker({
+              position: new naver.maps.LatLng(store.location.coordinates[1], store.location.coordinates[0]),
+              map: map,
+              title: store.storeName,
+            });
+          });
+        }
       } catch (error) {
+        console.error('Error fetching stock data:', error);
         setError(error);
+      } finally {
         setLoading(false);
       }
     };
 
-    if (drugID) {
-      fetchStores();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords;
+        initializeMap(latitude, longitude);
+        fetchStockData(latitude, longitude, drugID);
+      }, (error) => {
+        console.error('Error getting geolocation:', error);
+        setError(error);
+        setLoading(false);
+      });
+    } else {
+      alert("Geolocation is not supported by this browser.");
+      setLoading(false);
     }
-  }, [drugID]);
+  }, [drugID, map]);
 
-  return { mapRef, stores, loading, error };
+  return { map, mapRef, stores, loading, error };
 };
 
 export default useStock;
