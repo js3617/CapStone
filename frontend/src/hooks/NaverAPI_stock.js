@@ -99,7 +99,7 @@ const MapElement = styled.div`
 const { naver } = window;
 
 const API_stock = () => {
-  const { id } = useParams();
+  const { id } = useParams(); // `id`는 drugID를 의미합니다.
   const [markers, setMarkers] = useState([]);
   const [map, setMap] = useState(null);
 
@@ -117,12 +117,12 @@ const API_stock = () => {
   }, [id]);
 
   const fetchNearbyStores = (latitude, longitude, drugID) => {
-    axios.post(`http://localhost:3000/store/stock/`, { latitude, longitude })
+    axios.post(`http://localhost:3000/store/stock`, { latitude, longitude, drugID })
       .then(response => {
         setMarkers(response.data.stores);
       })
       .catch(error => {
-        console.error('Error fetching nearby pharmacies:', error);
+        console.error('Error fetching nearby stores:', error);
       });
   };
 
@@ -141,13 +141,13 @@ const API_stock = () => {
         new naver.maps.Marker({
           position: new naver.maps.LatLng(marker.location.coordinates[1], marker.location.coordinates[0]),
           map: map,
-          title: marker.name,
+          title: marker.storeName,
           icon: {
             url: '/images/redmarker.png',
             size: new naver.maps.Size(22, 36),
             origin: new naver.maps.Point(0, 0),
             anchor: new naver.maps.Point(11, 35)
-        }
+          }
         });
       });
     }
