@@ -21,6 +21,20 @@ const GlobalStyle = createGlobalStyle`
         z-index: 10;
         color: var(--text-color)
     }
+
+    ::-webkit-scrollbar {
+    width: 10px;  
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: rgba(102, 102, 102, 0.3); /* 스크롤바 색상 */
+        border-radius: 10px; /* 스크롤바 둥근 테두리 */
+    }
+
+    ::-webkit-scrollbar-track {
+        background: none;  /*스크롤바 뒷 배경 색상*/
+    }
+
     nav{
         top: 0;
         left: 0;
