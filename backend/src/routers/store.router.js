@@ -250,7 +250,7 @@ async function getStockData(drugID) {
                 '--no-first-run',
                 '--no-sandbox',
                 '--no-zygote',
-                '--single-process',
+                // '--single-process',
                 '--disable-webgl'
             ]
         });
