@@ -5,11 +5,11 @@ import GlobalStyle from "../../styles/Globalstyle";
 
 function Gnb() {
 
-    //useLocation() 사용하여 현재 URL 정보 가져오기
+    // useLocation() to get current URL information
     const location = useLocation();
 
-    // 링크가 활성화되어 있는지 여부를 판단하는 기능
-    const isActive = (path) => location.pathname === path;
+    // Determine if the link is active
+    const isActive = (path) => location.pathname === path || location.pathname.startsWith(path);
 
     return (
         <>
@@ -24,15 +24,15 @@ function Gnb() {
                     <div className="navMenu">
                         <Link to="/drug">
                             의약품 검색
-                            <hr style={{ opacity: isActive('/drug') || isActive('/') ? 1 : 0.4 }} />
+                            <hr style={{ opacity: isActive('/drug') ? 1 : 0.4 }} />
                         </Link>
                         <Link to="/pharmacy">
                             약국 지도
-                            <hr style={{ opacity: isActive('/pharmacy') || isActive('/') ? 1 : 0.4 }} />
+                            <hr style={{ opacity: isActive('/pharmacy') ? 1 : 0.4 }} />
                         </Link>
                         <Link to="/store">
                             편의점 지도
-                            <hr style={{ opacity: isActive('/store') || isActive('/') ? 1 : 0.4 }} />
+                            <hr style={{ opacity: isActive('/store') ? 1 : 0.4 }} />
                         </Link>
                     </div>
                 </div>
