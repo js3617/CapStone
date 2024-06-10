@@ -62,10 +62,10 @@ const API_pharmacy = () => {
           title: marker.name,
           icon: {
             url: '/images/redmarker.png',
-            size: new naver.maps.Size(22, 36),
+            size: new naver.maps.Size(42, 53),
             origin: new naver.maps.Point(0, 0),
             anchor: new naver.maps.Point(11, 35)
-        }
+          }
         });
       });
     }
