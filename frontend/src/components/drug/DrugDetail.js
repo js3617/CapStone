@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { DetailText, DetailBText, CloseButton, DrugDetailsWrapper } from '../../styles/Drugstyled';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { RiCloseLargeLine } from "react-icons/ri";
 
 const Detailcontainer = styled.div`
   display: flex;
@@ -11,6 +12,7 @@ const Detailcontainer = styled.div`
   top: 80%;
   left: 50%;
   transform: translate(-50%, -50%);
+  z-index: 1000;
 `;
 
 const Pillbutton = styled.div`
@@ -42,6 +44,7 @@ const useDrugDetails = () => {
 
   const handleCardClick = (drug) => {
     setSelectedDrug(drug);
+    window.scrollTo(0, 0);
   };
 
   const handleCloseDetails = () => {
@@ -56,7 +59,7 @@ const DrugDetails = ({ selectedDrug, onClose }) => {
   return (
     <Detailcontainer>
       <DrugDetailsWrapper>
-        <CloseButton onClick={onClose}>×</CloseButton>
+        <CloseButton onClick={onClose}><RiCloseLargeLine /></CloseButton>
         <DetailBText>기본 정보</DetailBText>
         <DetailText>제품명 | {selectedDrug.drugName}</DetailText>
         <DetailText>분류 | {selectedDrug.drugCategory.join(', ')}</DetailText>
@@ -69,7 +72,7 @@ const DrugDetails = ({ selectedDrug, onClose }) => {
         <Pillbutton>
           <Link to="/pharmacy">약국</Link>
           <Dividing />
-          <Link to={`/store/stock/${selectedDrug.drugID}`}>편의점</Link>
+          <Link to={`/store/stock/${selectedDrug.drugID}?drugName=${encodeURIComponent(selectedDrug.drugName)}`}>편의점</Link>
         </Pillbutton>
       </DrugDetailsWrapper>
     </Detailcontainer>

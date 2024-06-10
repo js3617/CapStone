@@ -10,11 +10,13 @@ import DrugSearch from './pages/Drugsearch';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import Stock from './pages/Stock';
+import ScrollToTop from './components/scrolltop/ScrollTop';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <BrowserRouter>
+    <ScrollToTop/>
     <Routes>
       <Route path='/' element={<Home/>} />
       <Route path='/drug' element={<Drug/>} />
