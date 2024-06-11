@@ -1,7 +1,8 @@
 # CapStone
 
 ### ERD 
-    <img width="989" alt="스크린샷 2024-04-04 오후 1 56 37" src="https://github.com/js3617/CapStone/assets/118441496/4c435fc7-037e-44f9-81c8-b30c588dd13d">
+    <img width="989" alt="스크린샷 2024-06-11 오후 8 46 57" src="https://github.com/js3617/CapStone/assets/118441496/8a21df51-6b0b-4624-afc9-555eadc1b1d8">
+
 
 ### Directory Structure
 
