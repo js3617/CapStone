@@ -1,0 +1,11 @@
+# npm libraries information
+*/node_modules/
+
+# Key information
+*/.env
+
+# Config Document
+*/config/
+
+# Data Directory
+**/data/*.json
