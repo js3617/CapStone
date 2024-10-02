@@ -41,7 +41,7 @@ function Store() {
                 selectedCategory={selectedCategory}
                 setSelectedCategory={setSelectedCategory}
             />
-            <API_store />
+            <API_store selectedCategory={selectedCategory} />
             <StoreInformation selectedCategory={selectedCategory} />
             <Link to="/drug">
                 <ListButton>의약품 목록</ListButton>
