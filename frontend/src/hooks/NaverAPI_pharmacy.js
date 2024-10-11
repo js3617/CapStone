@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import apiClient from '../apiClient';
 import styled from 'styled-components';
 
 const MapContainer = styled.div`
@@ -56,7 +56,7 @@ const API_pharmacy = () => {
   }, []);
 
   const fetchNearbyStores = (latitude, longitude) => {
-    axios.post('http://localhost:3000/pharmacy', { latitude, longitude })
+    apiClient.post('/pharmacy', { latitude, longitude })
       .then(response => {
         setMarkers(response.data.pharmacies);
       })

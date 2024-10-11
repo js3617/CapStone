@@ -1,6 +1,6 @@
 // src/hooks/usePharmacies.js
 import { useState, useEffect } from 'react';
-import axios from 'axios';
+import apiClient from '../apiClient';
 
 const usePharmacies = () => {
     const [pharmacies, setPharmacies] = useState([]);
@@ -11,7 +11,7 @@ const usePharmacies = () => {
                 navigator.geolocation.getCurrentPosition(async (position) => {
                     const { latitude, longitude } = position.coords;
 
-                    const response = await axios.post('http://localhost:3000/pharmacy', {
+                    const response = await apiClient.post('/pharmacy', {
                         latitude,
                         longitude
                     });

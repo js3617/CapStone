@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import apiClient from '../apiClient';
 import styled from 'styled-components';
 import { useParams } from 'react-router-dom';
 
@@ -66,8 +66,8 @@ const API_stock = () => {
 
   // 서버에서 상점 재고 정보를 가져오는 함수
   const fetchNearbyStores = (latitude, longitude, drugID) => {
-    axios
-      .post('http://localhost:3000/store/stock', { latitude, longitude, drugID })
+    apiClient
+      .post('/store/stock', { latitude, longitude, drugID })
       .then((response) => {
         setMarkers(response.data.stores);
       })

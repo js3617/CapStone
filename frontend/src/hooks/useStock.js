@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import axios from 'axios';
+import apiClient from '../apiClient';
 
 const { naver } = window;
 
@@ -26,7 +26,7 @@ const useStock = (drugID) => {
 
     const fetchStockData = async (latitude, longitude, drugID) => {
       try {
-        const response = await axios.post(`http://localhost:3000/store/stock`, {
+        const response = await apiClient.post(`/store/stock`, {
           latitude,
           longitude,
           drugID,
