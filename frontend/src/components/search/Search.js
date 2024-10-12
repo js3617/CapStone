@@ -1,5 +1,9 @@
 import React, { useState } from "react";
-import searchIcon from "../../images/돋보기.png";
+// import searchIcon from "../../images/돋보기.png"; 이전 아이콘
+
+import { CiSearch } from "react-icons/ci"; //새로운 돋보기 아이콘
+import { FaLocationDot } from "react-icons/fa6"; //location dot 아이콘
+
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom"; // React Router의 useNavigate를 import
 
@@ -12,23 +16,52 @@ const SearchContainer = styled.div`
 `;
 
 const Search = styled.input`
-  width: 460px;
-  height: 80px;
+  width: 35vh;
+  height: 6vh;
   position: relative;
-  border-radius: 40px;
+  border-radius: 5px;
   border: none;
-  padding-left: 20px;
-  padding-right: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-size: 1.6vh;
 `;
 
-const SearchIcon = styled.img`
-  width: 49px;
+const InputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  background-color: white;
+  border-radius: 5px;
+  padding-left: 10px;
+  margin-right: 15px;
+`;
+
+const LocationIcon = styled(FaLocationDot)`
+  margin-right: 10px;
+  color: #9CA3AF;
+  font-size: 2.2vh;
+`;
+
+// const SearchIcon = styled.img`
+//   width: 49px;
+//   cursor: pointer;
+//   position: absolute;
+//   right: 12px;
+//   top: 50%;
+//   transform: translateY(-50%);
+// `; 이전 아이콘에 대한 내용
+
+const SearchWrapper = styled.div`
   cursor: pointer;
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
+  color: #FFFFFF;
+  background-color: #2A4387;
+  width: 10vh;
+  height: 6vh;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  span{
+    margin-left: 10px;
+    font-size: 1.5vh;
+  }
 `;
 
 function SearchComponents() {
@@ -52,8 +85,15 @@ function SearchComponents() {
 
   return (
     <SearchContainer>
-      <Search value={value} onChange={onChange} onKeyDown={handleKeyDown} placeholder="약, 증상 검색..." />
-      <SearchIcon src={searchIcon} alt="돋보기" onClick={handleSearch} />
+      <InputWrapper>
+        <LocationIcon />
+        <Search value={value} onChange={onChange} onKeyDown={handleKeyDown} placeholder="약, 증상 검색..." />
+      </InputWrapper>
+      {/* <SearchIcon src={searchIcon} alt="돋보기" onClick={handleSearch} /> 이전 아이콘에 대한 내용*/}
+      <SearchWrapper onClick={handleSearch}>
+        <CiSearch size={"2.5vh"} color="white" />
+        <span>검색</span>
+      </SearchWrapper>
     </SearchContainer>
   );
 }
