@@ -1,10 +1,12 @@
 import { createGlobalStyle } from "styled-components";
 
+// --point-color-background: #AEB9F2; 이전 배경 색상
+
 const GlobalStyle = createGlobalStyle`
     :root{
         --point-color-main: #;
         --point-color-serve: #;
-        --point-color-background: #AEB9F2;
+        --point-color-background: #FFFFFF;
         --text-color: #000000;
     }
 
@@ -35,6 +37,10 @@ const GlobalStyle = createGlobalStyle`
         background: none;  /*스크롤바 뒷 배경 색상*/
     }
 
+    input{
+        outline: none;
+    }
+
     nav{
         top: 0;
         left: 0;
@@ -45,10 +51,14 @@ const GlobalStyle = createGlobalStyle`
         width: 100%;
         .content{
             width: 100%;
-            height: 120px;
+            height: 10vh;
             display: flex;
             align-items: center;
             justify-content: space-between;
+        }
+        img{
+            width: 25vh;
+            height: 10vh;
         }
     }
     
@@ -57,14 +67,14 @@ const GlobalStyle = createGlobalStyle`
         justify-content: flex-end;
         align-items: center;
         & a{
-            margin: 1rem 2rem;
-            font-size: 1.5rem;
+            margin: 1vh 2vh;
+            font-size: 2vh;
             justify-content: end;
         }
         & hr{
             border: 0;
-            background-color: white;
-            height: 1vh;
+            background-color: #1C3988;
+            height: 0.5vh;
             box-shadow: 2px 2px 2px gray;
         }
     }
