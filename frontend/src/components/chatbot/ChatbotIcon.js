@@ -3,17 +3,17 @@ import styled from 'styled-components';
 
 import chatbotIcon from '../../images/chatbot.png';
 
-import Conversation from './conversation';
+import Conversation from './Conversation';
 
 const ChatbotButton = styled.div`
     position: fixed;
-    bottom: 70px;
+    bottom: 60px;
     right: 20px;
     z-index: 10;
     cursor: pointer;
     img{
-        width: 13vh;
-        height: 13vh;
+        width: 12vh;
+        height: 12vh;
     }
 `;
 
