@@ -7,6 +7,7 @@ import Store from "./pages/Store";
 import Home from './pages/Home';
 import DrugSearch from './pages/Drugsearch';
 import Stock from './pages/Stock';
+import StoreStock from './pages/Store_Stock';
 import ScrollToTop from './components/scrolltop/ScrollTop';
 import GNB from './components/navbar/Gnb';
 
@@ -32,6 +33,7 @@ function App() {
         <Route path='/store' element={<Store />} />
         <Route path='/drug/search/:query' element={<DrugSearch />} />
         <Route path="/store/stock/:id" element={<Stock />} />
+        <Route path='/Store_Stock' element={<StoreStock />} />
       </Routes>
     </BrowserRouter>
   );
