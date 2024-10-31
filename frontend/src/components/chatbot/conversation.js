@@ -16,7 +16,8 @@ const ChatWrapper = styled.div`
     bottom: 100%;
     right: 0;
     margin-bottom: 10px;
-    z-index: 9;
+    z-index: 9999;
+    border: 1px solid #E3E3E3;
 `;
 
 // 상단 헤더 스타일
@@ -122,6 +123,7 @@ const WelcomeContainer = styled.div`
     justify-content: center;
     height: 100vh;
     text-align: center;
+    z-index: 9999;
 `;
 
 const WelcomeMessage = styled.h1`
