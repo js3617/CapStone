@@ -31,6 +31,7 @@ const InputWrapper = styled.div`
   border-radius: 5px;
   padding-left: 10px;
   margin-right: 15px;
+  border: 1px solid #ccc;
 `;
 
 const LocationIcon = styled(FaLocationDot)`
