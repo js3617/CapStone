@@ -5,7 +5,6 @@ import { Container } from "../../styles/styled";
 import styled from "styled-components";
 import Search from "../../components/search/Search";
 
-import ChatbotIcon from "../chatbot/ChatbotIcon";
 
 const MainWrapper = styled.div`
   position: absolute;
@@ -61,7 +60,6 @@ function Posts() {
         <MainContentWrapper>
           <LogoImage src={logo} alt="어디약?" />
           <Search/>
-        <ChatbotIcon/>
         </MainContentWrapper>
       </MainWrapper>
 

@@ -10,6 +10,8 @@ import Stock from './pages/Stock';
 import ScrollToTop from './components/scrolltop/ScrollTop';
 import GNB from './components/navbar/Gnb';
 
+import ChatbotIcon from "./components/chatbot/ChatbotIcon";
+
 function App() {
   useEffect(() => {
     console.log('ID:', process.env.REACT_APP_NCP_CLIENT_ID);
@@ -21,6 +23,7 @@ function App() {
   return (
     <BrowserRouter>
     <GNB />
+    <ChatbotIcon/>
       <ScrollToTop />
       <Routes>
         <Route path='/' element={<Home />} />
