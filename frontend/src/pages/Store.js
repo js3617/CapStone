@@ -5,7 +5,7 @@ import API_store from "../hooks/NaverAPI_store";
 import StoreInformation from "../components/store/StoreInformation";
 import SearchComponents from "../components/search/Search";
 import Category from "../components/store/Categories";
-import LongBackground from '../components/background/LongBackgroundImage';
+// import LongBackground from '../components/background/LongBackgroundImage';
 import styled from 'styled-components';
 import { ListButton } from "../styles/styled";
 import useStores from '../hooks/useStores';
@@ -34,7 +34,7 @@ function Store() {
 
     return (
         <StorePageContainer>
-            <LongBackground />
+            {/* <LongBackground /> */}
             <SearchComponents />
             <Category
                 categories={categories}

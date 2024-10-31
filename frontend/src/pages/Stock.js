@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import API_stock from "../hooks/NaverAPI_stock";
 import StockList from "../components/stock/StockList"
 import SearchComponents from "../components/search/Search";
-import LongBackground from '../components/background/LongBackgroundImage'
+// import LongBackground from '../components/background/LongBackgroundImage'
 import styled from 'styled-components';
 import { ListButton } from "../styles/styled";
 
@@ -37,7 +37,7 @@ function Stock(){
 
     return(
         <StockPageContainer>
-            <LongBackground/>
+            {/* <LongBackground/> */}
             <SearchComponents/>
             <DrugItem>{drugName}</DrugItem>
             <API_stock/>

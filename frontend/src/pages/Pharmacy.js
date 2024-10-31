@@ -5,7 +5,7 @@ import PharmacyInformation from '../components/pharmacy/PharmacyInformation';
 import SearchComponents from '../components/search/Search';
 import styled from 'styled-components';
 import { ListButton } from "../styles/styled";
-import LongBackground from '../components/background/LongBackgroundImage'
+// import LongBackground from '../components/background/LongBackgroundImage'
 
 const PharmacyPageContainer = styled.div`
     display: flex;
@@ -17,7 +17,7 @@ const PharmacyPageContainer = styled.div`
 const Pharmacy = () => {
     return (
         <PharmacyPageContainer>
-            <LongBackground/>
+            {/* <LongBackground/> */}
             <SearchComponents/>
             <API_pharmacy/>
             <PharmacyInformation />

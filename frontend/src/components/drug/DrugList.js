@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { DrugContainer, Text, DrugCard, DrugImage, ImgCard, DrugWrapper } from '../../styles/Drugstyled';
 import Search from '../../components/search/Search';
-import LongBackground from '../background/LongBackgroundImage';
+// import LongBackground from '../background/LongBackgroundImage';
 import { useDrugDetails, DrugDetails } from './DrugDetail';
 
 // Styled components
@@ -20,7 +20,7 @@ const DrugList = ({ drugList }) => {
 
   return (
     <DrugContainer>
-      <LongBackground/>
+      {/* <LongBackground/> */}
       <MainWrapper>
       {!selectedDrug && <Search />}
         <DrugWrapper hidden={!!selectedDrug}>

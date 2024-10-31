@@ -2,7 +2,7 @@ import React from 'react';
 import { DrugContainer, Text, DrugCard, ImgCard, DrugImage, DrugWrapper } from '../../styles/Drugstyled';
 import Search from '../../components/search/Search';
 import { useDrugDetails, DrugDetails } from '../drug/DrugDetail';
-import LongBackground from '../background/LongBackgroundImage';
+// import LongBackground from '../background/LongBackgroundImage';
 
 
 const SearchResults = ({ drugList }) => {
@@ -10,7 +10,7 @@ const SearchResults = ({ drugList }) => {
 
   return (
     <DrugContainer>
-      <LongBackground />
+      {/* <LongBackground /> */}
       {!selectedDrug && <Search />}
       <DrugWrapper hidden={!!selectedDrug}>
         {drugList.map((drug) => (
