@@ -22,13 +22,14 @@ const LocationText = styled.p`
 
 const ListButton = styled.div`
     display: flex;
-    width: 18.75rem;
+    width: 28vh;
     height: 5rem;
     border-radius: 100px;
-    background-color: #fff;
+    background-color: #1C3988;
+    color: #FFFFFF;
     align-items: center;
     padding: 0 20px;
-    font-size: 32px;
+    font-size: 3vh;
     font-weight: 700;
     justify-content: center;
     margin: 30px 0 30px 0;
