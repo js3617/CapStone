@@ -11,7 +11,7 @@ const StockPageContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 8%;
+    padding-top: 3%;
 `;
 
 const DrugItem = styled.li`
