@@ -23,15 +23,15 @@ function Gnb() {
                     </div>
                     <div className="navMenu">
                         <Link to="/drug">
-                            의약품 목록
+                            <span>의약품 목록</span>
                             <hr style={{ opacity: isActive('/drug') ? 1 : 0.4 }} />
                         </Link>
                         <Link to="/Store_Stock">
-                            약국/편의점
+                            <span>약국/편의점</span>
                             <hr style={{ opacity: isActive('/Store_Stock') ? 1 : 0.4 }} />
                         </Link>
                         <Link to="/store">
-                            병원
+                            <span>병원</span>
                             <hr style={{ opacity: isActive('/store') ? 1 : 0.4 }} />
                         </Link>
                     </div>

@@ -75,7 +75,13 @@ const GlobalStyle = createGlobalStyle`
             border: 0;
             background-color: #1C3988;
             height: 0.5vh;
+            width: 10vh;
             box-shadow: 2px 2px 2px gray;
+        }
+        & span{
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
     }
     
