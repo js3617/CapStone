@@ -19,14 +19,14 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
-    "express": "^4.19.1",
+    "express": "^4.21.1",
     "fs-extra": "^11.2.0",
     "method-override": "^3.0.0",
-    "mongoose": "^6.9.2",
+    "mongoose": "^6.13.3",
     "multer": "^1.4.5-lts.1",
     "puppeteer": "^22.7.1"
   },
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.7"
   }
 }
