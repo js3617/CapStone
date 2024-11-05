@@ -9,7 +9,7 @@ const Detailcontainer = styled.div`
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 80%;
+  top: 50vh;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 1000;
@@ -17,15 +17,15 @@ const Detailcontainer = styled.div`
 
 const Pillbutton = styled.div`
   display: flex;
-  width: 18.75rem;
-  height: 5rem;
+  width: 25vh;
+  height: 7vh;
   border-radius: 100px;
   background-color: white;
   justify-content: space-evenly;
   align-items: center;
   z-index: 10;
   padding: 0 20px;
-  font-size: 32px;
+  font-size: 3vh;
   font-weight: 700;
   position: absolute;
   bottom: -7rem;
@@ -35,8 +35,8 @@ const Pillbutton = styled.div`
 
 const Dividing = styled.div`
   background-color: #000000;
-  width: 3px;
-  height: 50px;
+  width: 0.3vh;
+  height: 5vh;
 `;
 
 const useDrugDetails = () => {

@@ -5,7 +5,6 @@ import Search from '../../components/search/Search';
 // import LongBackground from '../background/LongBackgroundImage';
 import { useDrugDetails, DrugDetails } from './DrugDetail';
 
-// Styled components
 const MainWrapper = styled.div`
   width: 100%;
   height: 100%;
@@ -15,6 +14,7 @@ const MainWrapper = styled.div`
   justify-content: center;
 `;
 
+//크기가 작아지면 약 이미지 배열이 달라지게 수정하기
 const DrugList = ({ drugList }) => {
   const { selectedDrug, handleCardClick, handleCloseDetails } = useDrugDetails();
 

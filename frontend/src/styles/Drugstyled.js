@@ -1,13 +1,13 @@
 import styled from "styled-components";
 
 const Text = styled.p`
-    font-size: 1.2rem;
+    font-size: 1.8vh;
     display: flex;
     justify-content: center;
 `;
 
 const DetailText = styled.p`
-    font-size: 1.2rem;
+    font-size: 1.5vh;
     display: flex;
     text-align: left;
     line-height: 2;
@@ -24,7 +24,7 @@ const DrugWrapper = styled.div`
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
   align-items: center;
-  width: 800px;
+  width: 80vh;
   visibility: ${props => (props.hidden ? 'hidden' : 'visible')};
   z-index: 10;
 `;
@@ -47,7 +47,7 @@ const DrugDetailsWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%);
-  width: 1054px;
+  width: 100vh;
   z-index: 10;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
@@ -63,6 +63,7 @@ const CloseButton = styled.button`
   position: absolute;
   top: 10px;
   right: 10px;
+  font-size: 2vh;
   z-index: 10;
 `;
 
@@ -84,8 +85,8 @@ const ImgCard = styled.div`
 `;
 
 const DrugImage = styled.img`
-  width: 180px;
-  height: 120px;
+  width: 18vh;
+  height: 12vh;
   margin: auto;
   border-radius: 20px;
   display: flex;
