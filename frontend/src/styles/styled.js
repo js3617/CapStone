@@ -12,11 +12,11 @@ const Container = styled.div`
 
 const Name = styled.p`
     color: #CE3737;
-    font-size: 1.2rem;
+    font-size: 1.5vh;
 `
 
 const LocationText = styled.p`
-    font-size: 1.2rem;
+    font-size: 1.5vh;
     color: #000000;
 `
 
