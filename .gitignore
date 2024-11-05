@@ -9,3 +9,6 @@
 
 # Data Directory
 **/data/*.json
+
+# Dataset Directory
+dataset/

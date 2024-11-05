@@ -14,6 +14,7 @@ const
     pharmacyRouter = require('./routers/pharmacy.router'),
     storeRouter = require('./routers/store.router'),
     drugRouter = require('./routers/drug.router');
+    hospitalRouter = require('./routers/hospital.router');
 
 // 필요한 키들을 .env 파일과 config 폴더의 파일에서 불러옴
 const mongoURI = process.env.MONGO_URI;
@@ -41,6 +42,7 @@ app.use('/', mainRouter);
 app.use('/pharmacy', pharmacyRouter);
 app.use('/store', storeRouter);
 app.use('/drug', drugRouter);
+app.use('/hospital', hospitalRouter);
 
 app.use((err, req, res, next) => {
     res.status(err.status || 500);
@@ -51,10 +53,9 @@ mongoose.set('strictQuery', false);
 // mongo db 연결 매개변수로 .env 파일에 있는 URI값을 할당
 mongoose.connect(mongoURI)
     // 성공시
-    .then(() => console.log('MongoDB connected'))
+    .then(() => console.log("success connect mongoDB"))
     // 실패시
     .catch(err => console.log(err))
-
 
 // express App을 생성.
 app.listen(PORT, () => console.log(`Listening on http://localhost:${PORT}`));
