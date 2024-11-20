@@ -1,6 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
-import useChat from "../../hooks/useChat";
-
+import React, { useState } from 'react';
 import styled from "styled-components";
 import { FiSend, FiMinus, FiX } from "react-icons/fi";
 
@@ -339,6 +337,7 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
             ))}
             <div ref={messageAreaRef} ></div>
         </ChatArea>
+        {/* 문제점은 답변과 대화 내용을 구분 짓는 영역 필요 */}
 
           {/* 메시지 입력 영역 */}
         <MessageInputContainer>
