@@ -40,10 +40,10 @@ const PhoneLink = styled.a`
 `;
 
 const NoPharmaciesMessage = styled.div`
-  text-align: center;
-  font-size: 18px;
-  color: #FF0000;
-  margin-top: 20px;
+    text-align: center;
+    font-size: 18px;
+    color: #FF0000;
+    margin-top: 20px;
 `;
 
 const PharmacyInformation = () => {
@@ -66,7 +66,7 @@ const PharmacyInformation = () => {
                     ))}
                 </PharmacyList>
             ) : (
-                <NoPharmaciesMessage>열지 않았습니다!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</NoPharmaciesMessage>
+                <NoPharmaciesMessage>잠시만 기다려주세요.</NoPharmaciesMessage>
             )}
         </PharmacyContainer>
     );

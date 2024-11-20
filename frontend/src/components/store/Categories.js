@@ -13,11 +13,12 @@ const CategoryList = styled.ul`
     justify-content: space-around;
     margin-bottom: 20px;
     z-index: 100;
+    gap: 10px;
 `;
 
 const CategoryItem = styled.li`
-    height: 50px;
-    width: 185px;
+    height: 3rem;
+    width: 15vh;
     cursor: pointer;
     padding: 3px 8px;
     background-color: ${props => (props.active ? '#E8E8E8' : '#AEB9F2')};
@@ -42,6 +43,7 @@ const CategoryImage = styled.img`
 const CategoryText = styled.span`
     flex: 1;
     text-align: center;
+    font-size: 1rem;
 `;
 
 const Category = ({ categories, selectedCategory, setSelectedCategory }) => {
