@@ -18,8 +18,8 @@ const ButtonContainer = styled.div`
 `;
 
 const NavButton = styled.button`
-    height: 50px;
-    width: 185px;
+    height: 3rem;
+    width: 15vh;
     cursor: pointer;
     padding: 3px 8px;
     background-color: ${props => (props.active ? '#E8E8E8' : '#AEB9F2')};
