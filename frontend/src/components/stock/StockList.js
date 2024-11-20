@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import styled from 'styled-components';
 import useStock from '../../hooks/useStock';
 import { LocationText, Name } from '../../styles/styled';
+import Spinner from '../loading/Spinner';
 
 const StoreContainer = styled.div`
     display: flex;
@@ -43,7 +44,7 @@ const StockList = () => {
   const { stores, loading, error } = useStock(id);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Spinner />;
   }
 
   if (error) {
