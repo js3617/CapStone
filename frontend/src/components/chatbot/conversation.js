@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from "styled-components";
 import { FiSend, FiMinus, FiX } from "react-icons/fi";
 import useChat from "../../hooks/useChat";
@@ -40,7 +40,6 @@ const ChatArea = styled.div`
     padding: 10px;
 `;
 
-// 봇이 응답한 메시지 스타일
 const BotMessage = styled.div`
     background-color: #ebebeb;
     padding: 10px;
@@ -140,8 +139,20 @@ const HeaderIcons = styled.div`
 
 function Conversation({ closeChat, isHidden, setIsHidden }) {
     const [isChatStarted, setIsChatStarted] = useState(false);
-    const { message, setMessage, botReplies, handleChat } = useChat();
+    const { messages, userInput, setUserInput, handleSendMessage, loading } = useChat();
 
+    const messageAreaRef = useRef(null);
+
+    //스크롤 관련 내용
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages.length]);
+    
+    const scrollToBottom = () => {
+        if (messageAreaRef.current) {
+        messageAreaRef.current.scrollTop = messageAreaRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
     return (
     <ChatWrapper isHidden={isHidden}>
       {/* 상단 헤더 */}
@@ -165,30 +176,32 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
         // 채팅이 시작되면 채팅 인터페이스 표시
         <>
         <ChatArea>
-            {botReplies.map((reply, index) => (
-            <BotMessage key={index}>
-                {reply.text}
-                <MessageTime>{reply.time}</MessageTime>
-            </BotMessage>
+            {messages.map((msg, index) => (
+                msg.sender === 'user' ? (
+                    <UserMessage key={index}>
+                        {msg.message}
+                        <MessageTime>{new Date().toLocaleTimeString()}</MessageTime>
+                    </UserMessage>
+                ) : (
+                    <BotMessage key={index}>
+                        {msg.message}
+                        <MessageTime>{new Date().toLocaleTimeString()}</MessageTime>
+                        <div ref={messageAreaRef} ></div>
+                    </BotMessage>
+                )
             ))}
-            {/* 예시: 사용자가 입력한 메시지를 표시하는 곳 */}
-            {message && (
-            <UserMessage>
-                {message}
-                <MessageTime>{new Date().toLocaleTimeString()}</MessageTime>
-            </UserMessage>
-            )}
         </ChatArea>
+        {/* 문제점은 답변과 대화 내용을 구분 짓는 영역 필요 */}
 
           {/* 메시지 입력 영역 */}
         <MessageInputContainer>
             <MessageInput
                 type="text"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="입력해주세요."
+                value={userInput}
+                placeholder="메세지를 입력하세요."
+                onChange={(e) => setUserInput(e.target.value)}
             />
-            <SendButton onClick={handleChat}>
+            <SendButton onClick={handleSendMessage}>
                 <FiSend size="20" />
             </SendButton>
         </MessageInputContainer>
