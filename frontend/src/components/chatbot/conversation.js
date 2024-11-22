@@ -209,7 +209,7 @@ const Text = styled.p`
 
 function Conversation({ closeChat, isHidden, setIsHidden }) {
     const [isChatStarted, setIsChatStarted] = useState(false);
-    const { messages, userInput, setUserInput, handleSendMessage, setShowMedicineInfo, setShowHospitalInfo, showMedicineInfo, showHospitalInfo } = useChat();
+    const { messages, userInput, setUserInput, handleSendMessage, setMessages, showMedicineInfo, showHospitalInfo } = useChat();
     const messageAreaRef = useRef(null);
 
     const [drugs, setDrugs] = useState([]);
@@ -225,22 +225,30 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
         }
     };
 
-    const toggleMedicineInfo = () => {
-        setShowMedicineInfo(!showMedicineInfo);
-        setShowHospitalInfo(false);  // 병원 정보 상태 초기화
+    const toggleMedicineInfo = (index) => {
+        setMessages(messages.map((msg, i) => {
+            if (i === index) {
+                return { ...msg, showMedicineInfo: !msg.showMedicineInfo, showHospitalInfo: false };
+            }
+            return msg;
+        }));
     };
 
     // 병원 정보 표시 함수
-    const toggleHospitalInfo = () => {
-        setShowHospitalInfo(!showHospitalInfo);
-        setShowMedicineInfo(false);  // 약 정보 상태 초기화
+    const toggleHospitalInfo = (index) => {
+        setMessages(messages.map((msg, i) => {
+            if (i === index) {
+                return { ...msg, showHospitalInfo: !msg.showHospitalInfo, showMedicineInfo: false };
+            }
+            return msg;
+        }));
     };
 
-    useEffect(() => {
+    useEffect(() => { // 약의 정보를 받아오기 위함
         fetch('/drug')
             .then(response => response.json())
             .then(data => {
-                setDrugs(data.drug); // 백엔드에서 'drug'로 데이터를 보내고 있음
+                setDrugs(data.drug);
                 console.log('Fetched drugs:', data.drug);
             })
             .catch(error => {
@@ -284,11 +292,11 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                         </BotMessage>
                         {index !== 0 && ( // 0번째 인덱스가 아닐 때만 Btnwrapper를 표시
                         <Btnwrapper>
-                            <InfoBtn onClick={toggleMedicineInfo} selected={showMedicineInfo}>약 정보</InfoBtn>
-                            <InfoBtn onClick={toggleHospitalInfo} selected={showHospitalInfo}>병원 정보</InfoBtn>
+                            <InfoBtn onClick={() => toggleMedicineInfo(index)} selected={msg.showMedicineInfo}>약 정보</InfoBtn>
+                            <InfoBtn onClick={() => toggleHospitalInfo(index)} selected={msg.showHospitalInfo}>병원 정보</InfoBtn>
                         </Btnwrapper>
                         )}
-                        {showMedicineInfo && index !== 0 && (
+                        {msg.showMedicineInfo && index !== 0 && (
                             <InfoDisplay>
                                 <Swiper
                                     modules={[Navigation, Pagination]}
@@ -310,7 +318,7 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                                 </Swiper>
                             </InfoDisplay>
                         )}
-                        {showHospitalInfo && index !== 0 && (
+                        {msg.showHospitalInfo && index !== 0 && (
                             <InfoDisplay>
                                 <Swiper
                                     modules={[Navigation, Pagination]}
