@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
+import useChat from "../../hooks/useChat";
+
 import styled from "styled-components";
 import { FiSend, FiMinus, FiX } from "react-icons/fi";
-import useChat from "../../hooks/useChat";
+
+import a from "../../images/a.jpeg";
 
 // 전체 채팅 인터페이스 래퍼
 const ChatWrapper = styled.div`
@@ -38,12 +41,13 @@ const ChatArea = styled.div`
     margin-top: 20px;
     overflow-y: auto;
     padding: 10px;
+    font-size: 1.4vh;
 `;
 
 const BotMessage = styled.div`
-    background-color: #ebebeb;
+    background-color: #FFFFFF;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 10px 10px 10px 0;
     margin-bottom: 10px;
     align-self: flex-start;
     max-width: 80%;
@@ -54,15 +58,17 @@ const UserMessage = styled.div`
     background-color: #2A4387;
     color: white;
     padding: 10px;
-    border-radius: 10px;
+    border-radius: 10px 10px 0 10px;
+    margin-top: 10px;
     margin-bottom: 10px;
     align-self: flex-end;
     max-width: 80%;
+    margin-left: 10vh;
 `;
 
 // 시간 표시 스타일
 const MessageTime = styled.span`
-    font-size: 12px;
+    font-size: 1vh;
     color: #999;
     display: block;
     margin-top: 5px;
@@ -79,13 +85,15 @@ const MessageInputContainer = styled.div`
 `;
 
 // 메시지 입력 필드 스타일
-const MessageInput = styled.input`
+const MessageInput = styled.textarea`
     width: 24vh;
-    font-size: 1.5vh;
+    font-size: 1.3vh;
     padding: 10px;
     border-radius: 10px;
     border: 1px solid #ccc;
     margin-right: 10px;
+    resize: none;
+    overflow: auto;
 `;
 
 // 전송 버튼 스타일
@@ -137,10 +145,64 @@ const HeaderIcons = styled.div`
     justify-content: end;
 `;
 
+const Btnwrapper = styled.div`
+    display: flex;
+    max-width: 85%;
+`;
+
+const InfoBtn = styled.button`
+    background-color: ${props => props.selected ? '#DDDDDD' : '#1C3988'};
+    color: ${props => props.selected ? '#000000' : '#FFFFFF'};
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    padding: 2px;
+    font-size: 1.1vh;
+    margin-left: 5px;
+    flex: 1;
+    cursor: pointer;
+`;
+
+const InfoDisplay = styled.div`
+    display: flex;
+`;
+
+const InfoBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 10vh;
+    padding: 10px;
+    border: 1px solid #E3E3E3;
+    border-radius: 10px;
+    background: #FFFFFF;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 10px;
+`;
+
+const Name = styled.p`
+    color; #667085;
+    font-size: 1.3vh;
+    text-align: center;
+    text-weight: 900;
+`;
+const Img = styled.img`
+    width: 8vh;
+`;
+
+const Text = styled.p`
+    color: #667085;
+    font-size: 1.1vh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+`;
+
 function Conversation({ closeChat, isHidden, setIsHidden }) {
     const [isChatStarted, setIsChatStarted] = useState(false);
-    const { messages, userInput, setUserInput, handleSendMessage, loading } = useChat();
-
+    const { messages, userInput, setUserInput, handleSendMessage, setShowMedicineInfo, setShowHospitalInfo, showMedicineInfo, showHospitalInfo } = useChat();
     const messageAreaRef = useRef(null);
 
     //스크롤 관련 내용
@@ -153,6 +215,18 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
         messageAreaRef.current.scrollTop = messageAreaRef.current.scrollIntoView({ behavior: 'smooth' });
         }
     };
+
+    const toggleMedicineInfo = () => {
+        setShowMedicineInfo(!showMedicineInfo);
+        setShowHospitalInfo(false);  // 병원 정보 상태 초기화
+    };
+
+    // 병원 정보 표시 함수
+    const toggleHospitalInfo = () => {
+        setShowHospitalInfo(!showHospitalInfo);
+        setShowMedicineInfo(false);  // 약 정보 상태 초기화
+    };
+    
     return (
     <ChatWrapper isHidden={isHidden}>
       {/* 상단 헤더 */}
@@ -180,18 +254,43 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                 msg.sender === 'user' ? (
                     <UserMessage key={index}>
                         {msg.message}
-                        <MessageTime>{new Date().toLocaleTimeString()}</MessageTime>
+                        <MessageTime>{new Date(msg.time).toLocaleTimeString()}</MessageTime>
                     </UserMessage>
                 ) : (
-                    <BotMessage key={index}>
-                        {msg.message}
-                        <MessageTime>{new Date().toLocaleTimeString()}</MessageTime>
-                        <div ref={messageAreaRef} ></div>
-                    </BotMessage>
+                    <>
+                        <BotMessage key={index}>
+                            {msg.message}
+                        </BotMessage>
+                        {index !== 0 && ( // 0번째 인덱스가 아닐 때만 Btnwrapper를 표시
+                        <Btnwrapper>
+                            <InfoBtn onClick={toggleMedicineInfo} selected={showMedicineInfo}>약 정보</InfoBtn>
+                            <InfoBtn onClick={toggleHospitalInfo} selected={showHospitalInfo}>병원 정보</InfoBtn>
+                        </Btnwrapper>
+                        )}
+                        {showMedicineInfo && index !== 0 && (
+                            <InfoDisplay>
+                                <InfoBox>
+                                    <Name>글자</Name>
+                                    <Img src={a} alt="약" />
+                                    <Text>글자글자</Text>
+                                </InfoBox>
+                            </InfoDisplay>
+                        )}
+                        {showHospitalInfo && index !== 0 && (
+                            <InfoDisplay>
+                                <InfoBox>
+                                    <Name>건치과의원</Name>
+                                    <Img src={a} alt="약" />
+                                    <Text>영업중</Text>
+                                    <Text>부산부산진구가야동</Text>
+                                </InfoBox>
+                            </InfoDisplay>
+                        )}
+                    </>
                 )
             ))}
+            <div ref={messageAreaRef} ></div>
         </ChatArea>
-        {/* 문제점은 답변과 대화 내용을 구분 짓는 영역 필요 */}
 
           {/* 메시지 입력 영역 */}
         <MessageInputContainer>
@@ -200,6 +299,13 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                 value={userInput}
                 placeholder="메세지를 입력하세요."
                 onChange={(e) => setUserInput(e.target.value)}
+                // onKeyDown={(e) => e.key === 'Enter' && handleSendMessage()} 지금 두 개가 보내지는 문제가 발생
+                onKeyDown={e => {
+                    if (e.key === 'Enter' && !e.nativeEvent.isComposing) {
+                        e.preventDefault();
+                        handleSendMessage();
+                    }
+                    }}
             />
             <SendButton onClick={handleSendMessage}>
                 <FiSend size="20" />
