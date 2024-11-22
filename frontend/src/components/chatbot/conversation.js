@@ -4,6 +4,13 @@ import useChat from "../../hooks/useChat";
 import styled from "styled-components";
 import { FiSend, FiMinus, FiX } from "react-icons/fi";
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+
 import a from "../../images/a.jpeg";
 
 // 전체 채팅 인터페이스 래퍼
@@ -205,6 +212,8 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
     const { messages, userInput, setUserInput, handleSendMessage, setShowMedicineInfo, setShowHospitalInfo, showMedicineInfo, showHospitalInfo } = useChat();
     const messageAreaRef = useRef(null);
 
+    const [drugs, setDrugs] = useState([]);
+
     //스크롤 관련 내용
     useEffect(() => {
         scrollToBottom();
@@ -226,6 +235,18 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
         setShowHospitalInfo(!showHospitalInfo);
         setShowMedicineInfo(false);  // 약 정보 상태 초기화
     };
+
+    useEffect(() => {
+        fetch('/drug')
+            .then(response => response.json())
+            .then(data => {
+                setDrugs(data.drug); // 백엔드에서 'drug'로 데이터를 보내고 있음
+                console.log('Fetched drugs:', data.drug);
+            })
+            .catch(error => {
+                console.error('Error fetching drugs:', error);
+            });
+        }, []);
     
     return (
     <ChatWrapper isHidden={isHidden}>
@@ -269,21 +290,43 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                         )}
                         {showMedicineInfo && index !== 0 && (
                             <InfoDisplay>
-                                <InfoBox>
-                                    <Name>글자</Name>
-                                    <Img src={a} alt="약" />
-                                    <Text>글자글자</Text>
-                                </InfoBox>
+                                <Swiper
+                                    modules={[Navigation, Pagination]}
+                                    spaceBetween={10}
+                                    slidesPerView={2}
+                                    navigation
+                                    pagination={{ clickable: true }}
+                                    scrollbar={{ draggable: true }}
+                                >
+                                {drugs.length > 0 ? drugs.map(drug => (
+                                    <SwiperSlide key={drug._id}>
+                                        <InfoBox>
+                                            <Name>{drug.drugName}</Name>
+                                            <Img src={drug.drugImage} alt="약" />
+                                            <Text>{drug.drugDose}</Text>
+                                        </InfoBox>
+                                    </SwiperSlide>
+                                )) : <p>No drugs found</p>}
+                                </Swiper>
                             </InfoDisplay>
                         )}
                         {showHospitalInfo && index !== 0 && (
                             <InfoDisplay>
-                                <InfoBox>
-                                    <Name>건치과의원</Name>
-                                    <Img src={a} alt="약" />
-                                    <Text>영업중</Text>
-                                    <Text>부산부산진구가야동</Text>
-                                </InfoBox>
+                                <Swiper
+                                    modules={[Navigation, Pagination]}
+                                    spaceBetween={30}
+                                    slidesPerView={2}
+                                    navigation
+                                    pagination={{ clickable: true }}
+                                    scrollbar={{ draggable: true }}
+                                >
+                                    <InfoBox>
+                                        <Name>건치과의원</Name>
+                                        <Img src={a} alt="약" />
+                                        <Text>영업중</Text>
+                                        <Text>부산부산진구가야동</Text>
+                                    </InfoBox>
+                                </Swiper>
                             </InfoDisplay>
                         )}
                     </>
