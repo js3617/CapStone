@@ -40,7 +40,7 @@ const DrugContainer = styled.div`
 `;
 
 const DrugDetailsWrapper = styled.div`
-  background-color: #FFFFFF;
+  background-color: #DDDDDD;
   padding: 40px;
   border-radius: 30px;
   position: relative;
@@ -53,7 +53,7 @@ const DrugDetailsWrapper = styled.div`
 `;
 
 const CloseButton = styled.button`
-  background-color: #FFFFFF;
+  background-color: #DDDDDD;
   color: #000000;
   border: none;
   border-radius: 50%;
