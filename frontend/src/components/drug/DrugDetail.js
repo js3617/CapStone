@@ -20,7 +20,7 @@ const Pillbutton = styled.div`
   width: 25vh;
   height: 7vh;
   border-radius: 100px;
-  background-color: white;
+  background-color: #DDDDDD;
   justify-content: space-evenly;
   align-items: center;
   z-index: 10;
