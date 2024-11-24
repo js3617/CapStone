@@ -17,15 +17,15 @@ const OperatingHour = new Schema({
 });
 
 const PharmacySchema = new Schema({
-    name: {
+    dutyName: {
         type: String,
         required: true
     },
-    address: {
+    dutyAddr: {
         type: String,
         required: true
     },
-    phone: {
+    dutyTel1: {
         type: String
     },
     location: {

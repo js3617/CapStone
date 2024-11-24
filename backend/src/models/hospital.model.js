@@ -17,19 +17,19 @@ const OperatingHour = new Schema({
 });
 
 const HospitalSchema = new Schema({
-    name: {
+    hospitalsName: {
         type: String,
         required: true
     },
-    type:{
+    hospitalsType:{
         type: String,
         required:true
     },
-    address: {
+    hospitalsAddr: {
         type: String,
         required: true
     },
-    phone: {
+    hospitalsTel1: {
         type: String
     },
     location: {
