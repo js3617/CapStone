@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import DrugSearch from './pages/Drugsearch';
 import Stock from './pages/Stock';
 import StoreStock from './pages/Store_Stock';
+import Hospital from './pages/Hospital';
 import ScrollToTop from './components/scrolltop/ScrollTop';
 import GNB from './components/navbar/Gnb';
 
@@ -15,7 +16,6 @@ import ChatbotIcon from "./components/chatbot/ChatbotIcon";
 
 function App() {
   useEffect(() => {
-    console.log('ID:', process.env.REACT_APP_NCP_CLIENT_ID);
     const script = document.createElement('script');
     script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.REACT_APP_NCP_CLIENT_ID}`;
     script.async = true;
@@ -31,6 +31,7 @@ function App() {
         <Route path='/drug' element={<Drug />} />
         <Route path='/pharmacy' element={<Pharmacy />} />
         <Route path='/store' element={<Store />} />
+        <Route path='/hospital' element={<Hospital />} />
         <Route path='/drug/search/:query' element={<DrugSearch />} />
         <Route path="/store/stock/:id" element={<Stock />} />
         <Route path='/Store_Stock' element={<StoreStock />} />

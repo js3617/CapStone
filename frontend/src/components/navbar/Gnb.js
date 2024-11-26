@@ -30,9 +30,9 @@ function Gnb() {
                             <span>약국/편의점</span>
                             <hr style={{ opacity: isActive('/Store_Stock') ? 1 : 0.4 }} />
                         </Link>
-                        <Link to="/store">
+                        <Link to="/hospital">
                             <span>병원</span>
-                            <hr style={{ opacity: isActive('/store') ? 1 : 0.4 }} />
+                            <hr style={{ opacity: isActive('/hospital') ? 1 : 0.4 }} />
                         </Link>
                     </div>
                 </div>
