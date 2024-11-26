@@ -25,8 +25,9 @@ function Store() {
     useEffect(() => {
         const uniqueCategories = new Set(['전체']);
         stores.forEach(store => {
-            if (store.storeName.includes('씨유')) uniqueCategories.add('씨유');
+            if (store.storeName.includes('CU')) uniqueCategories.add('CU');
             else if (store.storeName.includes('GS25')) uniqueCategories.add('GS25');
+            else if (store.storeName.includes('세븐일레븐')) uniqueCategories.add('세븐일레븐');
             else if (store.storeName.includes('이마트24')) uniqueCategories.add('이마트24');
         });
         setCategories([...uniqueCategories]);

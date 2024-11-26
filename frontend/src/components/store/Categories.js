@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import CUImage from '../../images/CU.png';
 import GS25Image from '../../images/GS25.png';
 import Emart24Image from '../../images/Emart24.png';
+import Eleven7Image from '../../images/7Eleven.png';
 
 const CategoryList = styled.ul`
     display: flex;
@@ -49,12 +50,14 @@ const CategoryText = styled.span`
 const Category = ({ categories, selectedCategory, setSelectedCategory }) => {
     const getCategoryImage = (category) => {
         switch (category) {
-            case '씨유':
+            case 'CU':
                 return CUImage;
             case 'GS25':
                 return GS25Image;
+            case '세븐일레븐':
+                return Eleven7Image;
             case '이마트24':
-                return Emart24Image;
+                return Emart24Image
             default:
                 return null;
         }
