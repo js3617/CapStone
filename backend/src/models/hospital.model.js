@@ -7,11 +7,11 @@ const OperatingHour = new Schema({
         required: true
     },
     open: {
-        type: String,
+        type: Number,
         required: true
     },
     close: {
-        type: String,
+        type: Number,
         required: true
     }
 });
