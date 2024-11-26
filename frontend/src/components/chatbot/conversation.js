@@ -209,7 +209,7 @@ const Text = styled.p`
 
 function Conversation({ closeChat, isHidden, setIsHidden }) {
     const [isChatStarted, setIsChatStarted] = useState(false);
-    const { messages, userInput, setUserInput, handleSendMessage, setMessages, showMedicineInfo, showHospitalInfo } = useChat();
+    const { messages, userInput, setUserInput, handleSendMessage, setMessages } = useChat();
     const messageAreaRef = useRef(null);
 
     const [drugs, setDrugs] = useState([]);
@@ -225,7 +225,7 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
         }
     };
 
-    const toggleMedicineInfo = (index) => {
+    const toggleMedicineInfo = (index) => { // 약의 정보 버튼 클릭
         setMessages(messages.map((msg, i) => {
             if (i === index) {
                 return { ...msg, showMedicineInfo: !msg.showMedicineInfo, showHospitalInfo: false };
@@ -234,8 +234,7 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
         }));
     };
 
-    // 병원 정보 표시 함수
-    const toggleHospitalInfo = (index) => {
+    const toggleHospitalInfo = (index) => { // 병원 정보 버튼 클릭
         setMessages(messages.map((msg, i) => {
             if (i === index) {
                 return { ...msg, showHospitalInfo: !msg.showHospitalInfo, showMedicineInfo: false };
@@ -303,8 +302,6 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                                     spaceBetween={10}
                                     slidesPerView={2}
                                     navigation
-                                    pagination={{ clickable: true }}
-                                    scrollbar={{ draggable: true }}
                                 >
                                 {drugs.length > 0 ? drugs.map(drug => (
                                     <SwiperSlide key={drug._id}>

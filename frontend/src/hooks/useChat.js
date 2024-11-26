@@ -93,15 +93,10 @@ function useChat() {
 
     return {
         messages,
+        setMessages,
         userInput,
         setUserInput,
         handleSendMessage,
-        loading,
-        setLoading,
-        showMedicineInfo,
-        setShowMedicineInfo,
-        showHospitalInfo,
-        setShowHospitalInfo
     };
 }
 
