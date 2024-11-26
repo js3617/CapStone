@@ -7,7 +7,7 @@ function useChat() {
     const [showMedicineInfo, setShowMedicineInfo] = useState(false);  // 약 정보 표시 상태
     const [showHospitalInfo, setShowHospitalInfo] = useState(false);  // 병원 정보 표시 상태
 
-    const apiKey = 'sk-proj-ZNbGh0zCXNC06KSNdcjJT3BlbkFJrDHRJBVMPca3SONWU0gy';
+    const apiKey = process.env.OPENAI_API_KEY;
     const apiEndpoint = 'https://api.openai.com/v1/chat/completions';
 
     useEffect(() => {
