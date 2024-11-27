@@ -1,5 +1,6 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import useChat from "../../hooks/useChat";
+
 import styled from "styled-components";
 import { FiSend, FiMinus, FiX } from "react-icons/fi";
 
@@ -9,16 +10,6 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
-
-=======
-import React, { useEffect, useRef, useState } from 'react';
-import useChat from "../../hooks/useChat";
-
-import styled from "styled-components";
-import { FiSend, FiMinus, FiX } from "react-icons/fi";
-
->>>>>>> 11c8c5a (Fix - textarea or input 태그 한글 중복 입력 문제 isComposing으로 문제 해결)
-import a from "../../images/a.jpeg";
 
 // 전체 채팅 인터페이스 래퍼
 const ChatWrapper = styled.div`
@@ -216,11 +207,7 @@ const Text = styled.p`
 
 function Conversation({ closeChat, isHidden, setIsHidden }) {
     const [isChatStarted, setIsChatStarted] = useState(false);
-<<<<<<< HEAD
     const { messages, userInput, setUserInput, handleSendMessage, setMessages } = useChat();
-=======
-    const { messages, userInput, setUserInput, handleSendMessage, setShowMedicineInfo, setShowHospitalInfo, showMedicineInfo, showHospitalInfo } = useChat();
->>>>>>> 11c8c5a (Fix - textarea or input 태그 한글 중복 입력 문제 isComposing으로 문제 해결)
     const messageAreaRef = useRef(null);
 
     const [drugs, setDrugs] = useState([]);
@@ -236,7 +223,6 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
         }
     };
 
-<<<<<<< HEAD
     const toggleMedicineInfo = (index) => { // 약의 정보 버튼 클릭
         setMessages(messages.map((msg, i) => {
             if (i === index) {
@@ -266,18 +252,6 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                 console.error('Error fetching drugs:', error);
             });
         }, []);
-=======
-    const toggleMedicineInfo = () => {
-        setShowMedicineInfo(!showMedicineInfo);
-        setShowHospitalInfo(false);  // 병원 정보 상태 초기화
-    };
-
-    // 병원 정보 표시 함수
-    const toggleHospitalInfo = () => {
-        setShowHospitalInfo(!showHospitalInfo);
-        setShowMedicineInfo(false);  // 약 정보 상태 초기화
-    };
->>>>>>> 11c8c5a (Fix - textarea or input 태그 한글 중복 입력 문제 isComposing으로 문제 해결)
     
     return (
     <ChatWrapper isHidden={isHidden}>
@@ -315,7 +289,6 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                         </BotMessage>
                         {index !== 0 && ( // 0번째 인덱스가 아닐 때만 Btnwrapper를 표시
                         <Btnwrapper>
-<<<<<<< HEAD
                             <InfoBtn onClick={() => toggleMedicineInfo(index)} selected={msg.showMedicineInfo}>약 정보</InfoBtn>
                             <InfoBtn onClick={() => toggleHospitalInfo(index)} selected={msg.showHospitalInfo}>병원 정보</InfoBtn>
                         </Btnwrapper>
@@ -352,34 +325,10 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                                 >
                                     <InfoBox>
                                         <Name>건치과의원</Name>
-                                        <Img src={a} alt="약" />
                                         <Text>영업중</Text>
                                         <Text>부산부산진구가야동</Text>
                                     </InfoBox>
                                 </Swiper>
-=======
-                            <InfoBtn onClick={toggleMedicineInfo} selected={showMedicineInfo}>약 정보</InfoBtn>
-                            <InfoBtn onClick={toggleHospitalInfo} selected={showHospitalInfo}>병원 정보</InfoBtn>
-                        </Btnwrapper>
-                        )}
-                        {showMedicineInfo && index !== 0 && (
-                            <InfoDisplay>
-                                <InfoBox>
-                                    <Name>글자</Name>
-                                    <Img src={a} alt="약" />
-                                    <Text>글자글자</Text>
-                                </InfoBox>
-                            </InfoDisplay>
-                        )}
-                        {showHospitalInfo && index !== 0 && (
-                            <InfoDisplay>
-                                <InfoBox>
-                                    <Name>건치과의원</Name>
-                                    <Img src={a} alt="약" />
-                                    <Text>영업중</Text>
-                                    <Text>부산부산진구가야동</Text>
-                                </InfoBox>
->>>>>>> 11c8c5a (Fix - textarea or input 태그 한글 중복 입력 문제 isComposing으로 문제 해결)
                             </InfoDisplay>
                         )}
                     </>
