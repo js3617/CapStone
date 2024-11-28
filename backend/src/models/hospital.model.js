@@ -16,16 +16,20 @@ const OperatingHour = new Schema({
     }
 });
 
-const PharmacySchema = new Schema({
-    dutyName: {
+const HospitalSchema = new Schema({
+    hospitalsName: {
         type: String,
         required: true
     },
-    dutyAddr: {
+    hospitalsType:{
+        type: String,
+        required:true
+    },
+    hospitalsAddr: {
         type: String,
         required: true
     },
-    dutyTel1: {
+    hospitalsTel1: {
         type: String
     },
     location: {
@@ -37,8 +41,8 @@ const PharmacySchema = new Schema({
 
 
 // 인덱스 설정: location 필드를 위한 2dsphere 인덱스
-PharmacySchema.index({ location: '2dsphere' });
+HospitalSchema.index({ location: '2dsphere' });
 
-const Pharmacy = mongoose.model('pharmacy', PharmacySchema);
+const Hospitals = mongoose.model('hospital', HospitalSchema);
 
-module.exports = Pharmacy
+module.exports = Hospitals

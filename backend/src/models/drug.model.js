@@ -27,6 +27,6 @@ const DrugSchema = new Schema({
     }
 })
 
-const Drugs = mongoose.model('Drug', DrugSchema);
+const Drugs = mongoose.model('drug', DrugSchema);
 
 module.exports = Drugs
