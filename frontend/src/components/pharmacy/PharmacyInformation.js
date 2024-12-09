@@ -4,6 +4,8 @@ import { BsTelephone } from 'react-icons/bs';
 import { LocationText, Name } from '../../styles/styled';
 import styled from 'styled-components';
 
+import Spinner from '../loading/Spinner';
+
 const PharmacyContainer = styled.div`
     display: flex;
     flex-direction: column; /* Stack items vertically */
@@ -47,7 +49,11 @@ const NoPharmaciesMessage = styled.div`
 `;
 
 const PharmacyInformation = () => {
-    const pharmacies = usePharmacies();
+    const { pharmacies, loading, error } = usePharmacies();
+
+    if (loading) return <Spinner />;
+    if (error) return <p>Error loading pharmacies: {error.message}</p>;
+    if (pharmacies.length === 0) return <NoPharmaciesMessage>약국 정보를 찾을 수 없습니다.</NoPharmaciesMessage>;
 
     return (
         <PharmacyContainer>
