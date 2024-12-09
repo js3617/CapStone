@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import usePharmacies from '../../hooks/usePharmacies';
 import useStores from '../../hooks/useStores';
@@ -47,47 +47,43 @@ const NoDataMessage = styled.div`
     margin-top: 20px;
 `;
 
-const CombinedInformation = ({ selectedCategory }) => {
+const CombinedInformation = () => {
     const pharmacies = usePharmacies();
     const stores = useStores();
+    const [combinedData, setCombinedData] = useState([]);
 
-    // 약국과 편의점 데이터를 통합하고 카테고리 필터링 적용
-    const combinedData = [
-        ...pharmacies.map(pharmacy => ({ 
-            type: 'pharmacy', 
-            name: pharmacy.dutyName, 
-            address: pharmacy.dutyAddr, 
-            phone: pharmacy.dutyTel1 
-        })),
-        ...stores.map(store => ({ 
-            type: 'store', 
-            name: store.storeName, 
-            address: store.storeAddr 
-        }))
-    ];
+    // pharmacies와 stores가 변경될 때만 combinedData를 업데이트
+    useEffect(() => {
+        const combined = [
+            ...pharmacies.map(pharmacy => ({
+                type: 'pharmacy',
+                name: pharmacy.dutyName,
+                address: pharmacy.dutyAddr,
+                phone: pharmacy.dutyTel1
+            })),
+            ...stores.map(store => ({
+                type: 'store',
+                name: store.storeName,
+                address: store.storeAddr
+            }))
+        ];
+        setCombinedData(combined);
+    }, [pharmacies, stores]);  // 의존성 배열에 pharmacies와 stores를 추가
 
     return (
-        <Container>
+        <div>
             {combinedData.length > 0 ? (
-                <List>
-                    {combinedData.map((item, index) => (
-                        <Item key={index}>
-                            <div>
-                                <Name>{item.name}</Name>
-                                <LocationText>{item.address}</LocationText>
-                            </div>
-                            {item.type === 'pharmacy' && item.phone && (
-                                <PhoneLink href={`tel:${item.phone}`}>
-                                    <BsTelephone />
-                                </PhoneLink>
-                            )}
-                        </Item>
-                    ))}
-                </List>
+                combinedData.map((item, index) => (
+                    <div key={index}>
+                        <p>{item.name} ({item.type})</p>
+                        <p>{item.address}</p>
+                        {item.phone && <p>{item.phone}</p>}
+                    </div>
+                ))
             ) : (
-                <NoDataMessage>관련 정보가 없습니다</NoDataMessage>
+                <p>No data available</p>
             )}
-        </Container>
+        </div>
     );
 };
 
