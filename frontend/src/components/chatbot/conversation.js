@@ -56,6 +56,7 @@ const BotMessage = styled.div`
     margin-bottom: 10px;
     align-self: flex-start;
     max-width: 80%;
+    line-height: 1.25rem;
 `;
 
 // 유저가 보낸 메시지 스타일
@@ -211,6 +212,7 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
     const messageAreaRef = useRef(null);
 
     const [drugs, setDrugs] = useState([]);
+    const [hospitals, setHospitals] = useState([]);
 
     //스크롤 관련 내용
     useEffect(() => {
@@ -251,7 +253,26 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
             .catch(error => {
                 console.error('Error fetching drugs:', error);
             });
-        }, []);
+    }, []);
+
+    useEffect(() => {
+        // 병원 정보를 받아오기 위함
+        fetch('/hospital', {
+            method: 'GET', // 방식을 GET으로 변경
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            setHospitals(data.hospitals);
+            console.log('Fetched hospitals:', data.hospitals);
+        })
+        .catch(error => {
+            console.error('Error fetching hospitals:', error);
+        });
+    }, []);
+    
     
     return (
     <ChatWrapper isHidden={isHidden}>
@@ -323,11 +344,16 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                                     pagination={{ clickable: true }}
                                     scrollbar={{ draggable: true }}
                                 >
-                                    <InfoBox>
-                                        <Name>건치과의원</Name>
-                                        <Text>영업중</Text>
-                                        <Text>부산부산진구가야동</Text>
-                                    </InfoBox>
+                                {hospitals.length > 0 ? hospitals.map(hospital => (
+                                    <SwiperSlide key={hospital._id}>
+                                        <InfoBox>
+                                            <Name>{hospital.hospitalsName}</Name>
+                                            {/* 병원 이미지가 있다면 아래 Img 컴포넌트를 활성화 */}
+                                            {/* <Img src={hospital.hospitalImage} alt="병원" /> */}
+                                            <Text>{hospital.hospitalsAddr}</Text>
+                                        </InfoBox>
+                                    </SwiperSlide>
+                                )) : <p>No hospitals found</p>}
                                 </Swiper>
                             </InfoDisplay>
                         )}
