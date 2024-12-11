@@ -71,19 +71,27 @@ const CombinedInformation = () => {
     }, [pharmacies, stores]);  // 의존성 배열에 pharmacies와 stores를 추가
 
     return (
-        <div>
+        <Container>
             {combinedData.length > 0 ? (
-                combinedData.map((item, index) => (
-                    <div key={index}>
-                        <p>{item.name} ({item.type})</p>
-                        <p>{item.address}</p>
-                        {item.phone && <p>{item.phone}</p>}
-                    </div>
-                ))
+                <List>
+                    {combinedData.map((item, index) => (
+                        <Item key={index}>
+                            <div>
+                                <Name>{item.name}</Name>
+                                <LocationText>{item.address}</LocationText>
+                            </div>
+                            {item.type === 'pharmacy' && item.phone && (
+                                <PhoneLink href={`tel:${item.phone}`}>
+                                    <BsTelephone />
+                                </PhoneLink>
+                            )}
+                        </Item>
+                    ))}
+                </List>
             ) : (
-                <p>No data available</p>
+                <NoDataMessage>관련 정보가 없습니다</NoDataMessage>
             )}
-        </div>
+        </Container>
     );
 };
 
