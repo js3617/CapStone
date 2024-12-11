@@ -7,7 +7,7 @@ function useChat() {
     const [showMedicineInfo, setShowMedicineInfo] = useState(false);  // 약 정보 표시 상태
     const [showHospitalInfo, setShowHospitalInfo] = useState(false);  // 병원 정보 표시 상태
 
-    const apiKey = process.env.OPENAI_API_KEY;
+    const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
     const apiEndpoint = 'https://api.openai.com/v1/chat/completions';
 
     useEffect(() => {
@@ -50,12 +50,38 @@ function useChat() {
         };
 
         const symptom = extractSymptom(message) || '증상 불명'; // 증상이 없으면 기본값 사용
-        const prompt = `사람의 현재 증상이 기록된 [${symptom}]과 관련된 병명과 원인을 출력하고, 
-                    병명이 기록된 [${symptom}]에 대한 증상을 완화할 수 있는 일반의약품 종류도 함께 출력해줘
-                    병명: 해당 문제에 대한  
-                    ...
-                    이 형식을 준수하여 3개 이상의 결과를 제공하십시오.
-                    각 결과는 반드시 줄 바꿈(\n)으로 구분되어야 합니다.`;
+        const prompt = `사람의 현재 증상이 기록된 [${symptom}]과 관련된 병명과 원인을 출력하고, 병명이 기록된 [${symptom}]에 대한 증상을 완화할 수 있는 일반의약품 종류도 함께 출력해줘.
+                        병명 및 원인:
+                        1. 병명: [병명1]
+                        - 원인: [원인 설명1]
+                        2. 병명: [병명2]
+                        - 원인: [원인 설명2]
+                        3. 병명: [병명3]
+                        - 원인: [원인 설명3]
+                        [병명1], [병명2], [병명3] 중 하나 또는 그 이상이 "증상 불명"으로 표시된 경우:
+                        "현재 제공된 정보로는 정확한 진단이 어렵습니다. 증상에 대해 더 자세히 설명해주세요. 예를 들어, 증상의 강도, 동반 증상 등을 추가로 알려주시면 도움이 될 것입니다."
+
+                        일반의약품 추천:
+                        1. [약 이름1]
+                        - 카테고리: [증상 카테고리]
+                        - 용량: [용량 정보]
+                        - 주의사항: [주의사항 정보]
+                        2. [약 이름2]
+                        - 카테고리: [증상 카테고리]
+                        - 용량: [용량 정보]
+                        - 주의사항: [주의사항 정보]
+                        3. [약 이름3]
+                        - 카테고리: [증상 카테고리]
+                        - 용량: [용량 정보]
+                        - 주의사항: [주의사항 정보]
+
+                        병원 추천 (부산 지역):
+                        1. 부산대학교병원
+                        2. 인제대학교 해운대백병원
+                        3. 동아대학교병원
+
+                        이 정보를 바탕으로 증상에 맞는 최적의 치료와 조치를 선택할 수 있습니다. 실제 치료는 전문 의료인의 진단을 받은 후 진행하는 것이 안전합니다.
+`;
         try {
             const response = await fetch(apiEndpoint, {
                 method: 'POST',
