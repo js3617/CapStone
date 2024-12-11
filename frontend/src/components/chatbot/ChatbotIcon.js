@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import chatbotIcon from '../../images/chatbot.png';
 
-import Conversation from './Conversation';
+import Conversation from './conversation';
 
 const ChatbotButton = styled.div`
     position: fixed;
