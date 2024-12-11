@@ -22,7 +22,7 @@ const CategoryItem = styled.li`
     width: 15vh;
     cursor: pointer;
     padding: 3px 8px;
-    background-color: ${props => (props.active ? '#E8E8E8' : '#AEB9F2')};
+    background-color: ${props => (props.active ? '#E8E8E8' : '#1C3988')};
     color: #000000;
     border-radius: 100px;
     display: flex;
