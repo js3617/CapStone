@@ -15,7 +15,7 @@ const MapElement = styled.div`
     height: 460px;
 `;
 
-const API_hospital = () => {
+const API_hospital = ({ filteredHospitals }) => {
     const [markers, setMarkers] = useState([]);
     const [map, setMap] = useState(null);
 
@@ -82,7 +82,7 @@ const API_hospital = () => {
             map: map,
             title: marker.name,
             icon: {
-                url: '/images/hospital_marker.png', // 병원 마커 이미지로 교체
+                url: '/images/redmarker.png', // 병원 마커 이미지로 교체
                 size: new window.naver.maps.Size(42, 53),
                 origin: new window.naver.maps.Point(0, 0),
                 anchor: new window.naver.maps.Point(11, 35)
