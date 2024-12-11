@@ -15,13 +15,11 @@ const useHospitals = () => {
                         latitude,
                         longitude
                     });
-                    console.log(response.data.hospitals);
-                    console.log(response.data);
                     setHospitals(response.data.hospitals);
                 }, (error) => {
                     console.error('Geolocation error:', error);
                 }, {
-                    enableHighAccuracy: true // 위치 정확도 향상을 위해 활성화
+                    enableHighAccuracy: true // 위치 정확도 향상
                 });
             } catch (error) {
                 console.error('Error fetching hospitals:', error);

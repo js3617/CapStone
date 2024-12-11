@@ -46,28 +46,31 @@ const NoHospitalsMessage = styled.div`
     margin-top: 20px;
 `;
 
-const HospitalInformation = () => {
-    const hospitals = useHospitals(); // 병원 데이터를 불러옴
-    console.log(hospitals);
+const HospitalInformation = ({ selectedCategory, selectedType, hospitals }) => {
+    const filteredHospitals = hospitals.filter(hospital => {
+        const matchesType = selectedType === '전체' || hospital.hospitalsType === selectedType;
+        const matchesCategory = selectedCategory === '전체' || (selectedCategory === '야간진료' && hospital.operatingHours.some(hour => hour.close >= 1800)) || (selectedCategory === '공휴일진료' && hospital.operatingHours.some(hour => hour.dayOfWeek === '공휴일'));
+        return matchesType && matchesCategory;
+    });
 
     return (
         <HospitalContainer>
-            {hospitals.length > 0 ? (
+            {filteredHospitals.length > 0 ? (
                 <HospitalList>
-                    {hospitals.map((hospital, index) => (
+                    {filteredHospitals.map((hospital, index) => (
                         <HospitalItem key={index}>
                             <div>
-                                <Name>{hospital.name}</Name>
-                                <LocationText>{hospital.address}</LocationText>
+                                <Name>{hospital.hospitalsName}</Name>
+                                <LocationText>{hospital.hospitalsAddr}</LocationText>
                             </div>
-                            <PhoneLink href={`tel:${hospital.phone}`}>
+                            <PhoneLink href={`tel:${hospital.hospitalsTel1}`}>
                                 <BsTelephone />
                             </PhoneLink>
                         </HospitalItem>
                     ))}
                 </HospitalList>
             ) : (
-                <NoHospitalsMessage>현재 사용 가능한 병원 정보가 없습니다.</NoHospitalsMessage>
+                <NoHospitalsMessage>조건에 맞는 병원 정보가 없습니다.</NoHospitalsMessage>
             )}
         </HospitalContainer>
     );
