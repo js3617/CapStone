@@ -22,8 +22,8 @@ const NavButton = styled.button`
     width: 15vh;
     cursor: pointer;
     padding: 3px 8px;
-    background-color: ${props => (props.active ? '#E8E8E8' : '#AEB9F2')};
-    color: #000000;
+    background-color: ${props => (props.active ? '#E8E8E8' : '#1C3988')};
+    color: ${props => (props.active ? '#000000' : '#ffffff')};
     border-radius: 100px;
     align-items: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

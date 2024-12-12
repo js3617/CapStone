@@ -23,7 +23,7 @@ const CategoryItem = styled.li`
     cursor: pointer;
     padding: 3px 8px;
     background-color: ${props => (props.active ? '#E8E8E8' : '#1C3988')};
-    color: #000000;
+    color: ${props => (props.active ? '#000000' : '#ffffff')};
     border-radius: 100px;
     display: flex;
     align-items: center;
