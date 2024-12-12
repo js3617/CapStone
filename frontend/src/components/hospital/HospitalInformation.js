@@ -49,7 +49,9 @@ const NoHospitalsMessage = styled.div`
 const HospitalInformation = ({ selectedCategory, selectedType, hospitals }) => {
     const filteredHospitals = hospitals.filter(hospital => {
         const matchesType = selectedType === '전체' || hospital.hospitalsType === selectedType;
-        const matchesCategory = selectedCategory === '전체' || (selectedCategory === '야간진료' && hospital.operatingHours.some(hour => hour.close >= 1800)) || (selectedCategory === '공휴일진료' && hospital.operatingHours.some(hour => hour.dayOfWeek === '공휴일'));
+        const matchesCategory = selectedCategory === '전체' || 
+            (selectedCategory === '야간진료' && hospital.operatingHours.some(hour => hour.close >= 1830)) || 
+            (selectedCategory === '공휴일진료' && hospital.operatingHours.some(hour => hour.dayOfWeek === '공휴일'));
         return matchesType && matchesCategory;
     });
 
