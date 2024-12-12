@@ -100,7 +100,7 @@ const Hospital = () => {
             if (hospital.hospitalsType) {
                 uniqueTypes.add(hospital.hospitalsType);
             }
-            if (hospital.operatingHours.some(hour => hour.close >= 1800)) {
+            if (hospital.operatingHours.some(hour => hour.close >= 1830)) {
                 uniqueCategories.add('야간진료');
             }
             if (hospital.operatingHours.some(hour => hour.dayOfWeek === '공휴일')) {
@@ -124,7 +124,7 @@ const Hospital = () => {
                     setSelectedCategory={setSelectedCategory}
                 />
                 <Dropdown onClick={toggleDropdown}>
-                    진료과목<GoChevronDown />
+                    {selectedType}<GoChevronDown />
                     <DropdownContent className={dropdownOpen ? 'show' : ''}>
                         <DropdownWrapper>
                             {types.map(type => (
