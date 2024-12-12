@@ -44,6 +44,11 @@ app.use('/store', storeRouter);
 app.use('/drug', drugRouter);
 app.use('/hospital', hospitalRouter);
 
+// 모든 GET 요청을 처리하는 코드
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '../../frontend/build', 'index.html'));
+});
+
 app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.send(err.message || '에러 발생');
