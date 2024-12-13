@@ -92,7 +92,7 @@ const NaverAPI_Stock_Stores = ({ selectedCategory }) => {
   useEffect(() => {
     if (map && (pharmacyMarkers.length > 0 || storeMarkers.length > 0)) {
       // 지도에 표시된 모든 마커를 초기화
-      mapMarkers.forEach(marker => marker.setMap(null));
+      // mapMarkers.forEach(marker => marker.setMap(null));
 
       // 약국 마커 추가
       const pharmacyMapMarkers = pharmacyMarkers.map(marker => {
@@ -123,11 +123,15 @@ const NaverAPI_Stock_Stores = ({ selectedCategory }) => {
           },
         });
       });
-
+      console.log(storeMapMarkers);
       // 새로 추가된 모든 마커 상태에 저장
       setMapMarkers([...pharmacyMapMarkers, ...storeMapMarkers]);
+      console.log(mapMarkers);
     }
   }, [pharmacyMarkers, storeMarkers, map]);
+  console.log(storeMarkers);
+  
+
 
   return (
     <MapContainer>

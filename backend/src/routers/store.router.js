@@ -1,29 +1,32 @@
 const express = require('express');
-const puppeteer = require('puppeteer');
-const Store = require('../models/store.model');
-
+const Store = require('../models/store.model'); // 모델 경로가 올바른지 확인하세요
 const router = express.Router();
 
-router.post('/', async (req, res, next) => {
+router.post('/', async (req, res) => {
     const { latitude, longitude } = req.body;
+    if (!latitude || !longitude) {
+        return res.status(400).json({ error: "Latitude and longitude must be provided." });
+    }
+
     try {
         const stores = await Store.find({
-                location: {
-                    $near: {
-                        $geometry: {
-                            type: "Point",
-                            coordinates: [longitude, latitude] // 경도, 위도 순서
-                        }
-                    }
+            location: {
+                $near: {
+                    $geometry: {
+                        type: "Point",
+                        coordinates: [longitude, latitude] // 경도, 위도 순서
+                    },
+                    $maxDistance: 5000 // 5km 이내의 상점만 조회
                 }
-            })
-            .limit(10)
-            .exec();
-        res.json({stores});
+            }
+        }).limit(10).exec();
+
+        res.status(200).json({ stores });
     } catch (error) {
-        res.status(500).send(err);
+        console.error("Error fetching stores:", error);
+        res.status(500).json({ error: "Internal server error" });
     }
-})
+});
 
 async function getStockData(drugID) {
     let browser;
