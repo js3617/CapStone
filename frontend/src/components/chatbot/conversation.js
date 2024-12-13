@@ -1,5 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
 import useChat from "../../hooks/useChat";
+import useHospitals from '../../hooks/useHospitals';
+
+import MapImage from '../../images/MapImage.png';
 
 import styled from "styled-components";
 import { FiSend, FiMinus, FiX } from "react-icons/fi";
@@ -179,7 +182,7 @@ const InfoBox = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 10vh;
+    width: 10vw;
     padding: 10px;
     border: 1px solid #E3E3E3;
     border-radius: 10px;
@@ -195,8 +198,12 @@ const Name = styled.p`
     text-weight: 900;
 `;
 const Img = styled.img`
-    width: 8vh;
+    width: 14vh;
+    height: 7vh;
+    border: 1px solid rgba(227, 227, 227, 0.8);
+    border-radius: 10px;
 `;
+// #E3E3E3
 
 const Text = styled.p`
     color: #667085;
@@ -212,7 +219,9 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
     const messageAreaRef = useRef(null);
 
     const [drugs, setDrugs] = useState([]);
-    const [hospitals, setHospitals] = useState([]);
+    // const [hospitals, setHospitals] = useState([]);
+
+    const hospitals = useHospitals();
 
     //스크롤 관련 내용
     useEffect(() => {
@@ -254,25 +263,6 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                 console.error('Error fetching drugs:', error);
             });
     }, []);
-
-    useEffect(() => {
-        // 병원 정보를 받아오기 위함
-        fetch('/hospital', {
-            method: 'GET', // 방식을 GET으로 변경
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            setHospitals(data.hospitals);
-            console.log('Fetched hospitals:', data.hospitals);
-        })
-        .catch(error => {
-            console.error('Error fetching hospitals:', error);
-        });
-    }, []);
-    
     
     return (
     <ChatWrapper isHidden={isHidden}>
@@ -318,11 +308,11 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                             <InfoDisplay>
                                 <Swiper
                                     modules={[Navigation, Pagination]}
-                                    spaceBetween={10}
+                                    spaceBetween={70}
                                     slidesPerView={2}
                                     navigation
                                 >
-                                {drugs.length > 0 ? drugs.map(drug => (
+                                {drugs.length > 0 ? drugs.slice(0, 4).map(drug => (
                                     <SwiperSlide key={drug._id}>
                                         <InfoBox>
                                             <Name>{drug.drugName}</Name>
@@ -338,18 +328,15 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                             <InfoDisplay>
                                 <Swiper
                                     modules={[Navigation, Pagination]}
-                                    spaceBetween={30}
+                                    spaceBetween={70}
                                     slidesPerView={2}
                                     navigation
-                                    pagination={{ clickable: true }}
-                                    scrollbar={{ draggable: true }}
                                 >
-                                {hospitals.length > 0 ? hospitals.map(hospital => (
+                                {hospitals.length > 0 ? hospitals.slice(0, 4).map(hospital => (
                                     <SwiperSlide key={hospital._id}>
                                         <InfoBox>
                                             <Name>{hospital.hospitalsName}</Name>
-                                            {/* 병원 이미지가 있다면 아래 Img 컴포넌트를 활성화 */}
-                                            {/* <Img src={hospital.hospitalImage} alt="병원" /> */}
+                                            <Img src={MapImage} alt="병원" />
                                             <Text>{hospital.hospitalsAddr}</Text>
                                         </InfoBox>
                                     </SwiperSlide>
