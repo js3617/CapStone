@@ -87,9 +87,9 @@ const API_store = ({selectedCategory}) => {
       
       const filteredMarkers = markers.filter((marker) => {
         if (selectedCategory === '전체') return true;
-        if (selectedCategory === '씨유' && marker.storeName.includes('씨유')) return true;
+        if (selectedCategory === 'CU' && marker.storeName.includes('CU')) return true;
         if (selectedCategory === 'GS25' && marker.storeName.includes('GS25')) return true;
-        if (selectedCategory === '이마트24' && marker.storeName.includes('이마트24')) return true;
+        if (selectedCategory === '세븐일레븐' && marker.storeName.includes('세븐일레븐')) return true;
         return false;
       });
 
