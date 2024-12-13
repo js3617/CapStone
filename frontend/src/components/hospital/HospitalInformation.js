@@ -1,8 +1,10 @@
-import React from 'react';
-import useHospitals from '../../hooks/useHospitals'; // 병원 정보를 불러오는 훅
+import React, { useState } from 'react';
+
+import { GoPlus } from "react-icons/go";
 import { BsTelephone } from 'react-icons/bs';
-import { LocationText, Name } from '../../styles/styled';
+
 import styled from 'styled-components';
+import { LocationText, Name } from '../../styles/styled';
 
 const HospitalContainer = styled.div`
     display: flex;
@@ -46,14 +48,30 @@ const NoHospitalsMessage = styled.div`
     margin-top: 20px;
 `;
 
+const MoreBtn = styled.button`
+    background-color: transparent;
+    border: none;
+    color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+`;
+
 const HospitalInformation = ({ selectedCategory, selectedType, hospitals }) => {
+    const [visibleCount, setVisibleCount] = useState(10); //병원 데이터 관리 수
+
     const filteredHospitals = hospitals.filter(hospital => {
         const matchesType = selectedType === '전체' || hospital.hospitalsType === selectedType;
         const matchesCategory = selectedCategory === '전체' || 
             (selectedCategory === '야간진료' && hospital.operatingHours.some(hour => hour.close >= 1830)) || 
             (selectedCategory === '공휴일진료' && hospital.operatingHours.some(hour => hour.dayOfWeek === '공휴일'));
         return matchesType && matchesCategory;
-    });
+    }).slice(0, visibleCount);
+
+    const handleLoadMore = () => {
+        setVisibleCount(prevCount => prevCount + 10);  // 10개씩 추가로 데이터를 표시
+    };
 
     return (
         <HospitalContainer>
@@ -73,6 +91,9 @@ const HospitalInformation = ({ selectedCategory, selectedType, hospitals }) => {
                 </HospitalList>
             ) : (
                 <NoHospitalsMessage>조건에 맞는 병원 정보가 없습니다.</NoHospitalsMessage>
+            )}
+            {visibleCount < hospitals.length && (
+                <MoreBtn onClick={handleLoadMore}><GoPlus />더 보기</MoreBtn>  // "더 보기" 버튼 추가
             )}
         </HospitalContainer>
     );
