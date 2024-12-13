@@ -49,11 +49,12 @@ const NoPharmaciesMessage = styled.div`
 `;
 
 const PharmacyInformation = () => {
-    const { pharmacies, loading, error } = usePharmacies();
+    // const { pharmacies, loading, error } = usePharmacies();
+    const pharmacies = usePharmacies();
 
-    if (loading) return <Spinner />;
-    if (error) return <p>Error loading pharmacies: {error.message}</p>;
-    if (pharmacies.length === 0) return <NoPharmaciesMessage>약국 정보를 찾을 수 없습니다.</NoPharmaciesMessage>;
+    // if (loading) return <Spinner />;
+    // if (error) return <p>Error loading pharmacies: {error.message}</p>;
+    // if (pharmacies.length === 0) return <NoPharmaciesMessage>약국 정보를 찾을 수 없습니다.</NoPharmaciesMessage>;
 
     return (
         <PharmacyContainer>
