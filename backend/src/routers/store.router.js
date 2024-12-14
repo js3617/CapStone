@@ -1,4 +1,5 @@
 const express = require('express');
+const puppeteer = require('puppeteer');
 const Store = require('../models/store.model'); // 모델 경로가 올바른지 확인하세요
 const router = express.Router();
 
