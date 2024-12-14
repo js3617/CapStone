@@ -31,6 +31,7 @@ const CategoryItem = styled.li`
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     &:hover {
         background-color: #E8E8E8;
+        color: #000000;
     }
 `;
 
