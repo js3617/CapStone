@@ -92,12 +92,15 @@ const NaverAPI_Stock_Stores = ({ selectedCategory }) => {
   useEffect(() => {
     if (map && (pharmacyMarkers.length > 0 || storeMarkers.length > 0)) {
       // 지도에 표시된 모든 마커를 초기화
-      // mapMarkers.forEach(marker => marker.setMap(null));
+      mapMarkers.forEach(marker => marker.setMap(null));
 
       // 약국 마커 추가
       const pharmacyMapMarkers = pharmacyMarkers.map(marker => {
-        return new window.naver.maps.Marker({
-          position: new window.naver.maps.LatLng(marker.location.coordinates[1], marker.location.coordinates[0]),
+        const markerInstance = new window.naver.maps.Marker({
+          position: new window.naver.maps.LatLng(
+            marker.location.coordinates[1], 
+            marker.location.coordinates[0]
+          ),
           map: map,
           title: marker.name,
           icon: {
@@ -107,11 +110,31 @@ const NaverAPI_Stock_Stores = ({ selectedCategory }) => {
             anchor: new window.naver.maps.Point(11, 35),
           },
         });
+        const overlayContent = `
+          <div style="background-color: white; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+            <strong>${marker.dutyName}</strong><br />
+            위치: ${marker.dutyAddr}
+          </div>
+        `;
+        const overlay = new window.naver.maps.InfoWindow({
+          content: overlayContent,
+          disableAnchor: true,
+          borderWidth: 0,
+        });
+
+        window.naver.maps.Event.addListener(markerInstance, 'mouseover', () => {
+          overlay.open(map, markerInstance);
+        });
+        window.naver.maps.Event.addListener(markerInstance, 'mouseout', () => {
+          overlay.close();
+        });
+
+        return markerInstance;
       });
 
       // 편의점 마커 추가
       const storeMapMarkers = storeMarkers.map(marker => {
-        return new window.naver.maps.Marker({
+        const markerInstance = new window.naver.maps.Marker({
           position: new window.naver.maps.LatLng(marker.location.coordinates[1], marker.location.coordinates[0]),
           map: map,
           title: marker.storeName,
@@ -122,14 +145,33 @@ const NaverAPI_Stock_Stores = ({ selectedCategory }) => {
             anchor: new window.naver.maps.Point(11, 35),
           },
         });
+        
+        const overlayContent = `
+          <div style="background-color: white; border: 1px solid #ccc; padding: 10px; border-radius: 5px;">
+            <strong>${marker.storeName}</strong><br />
+            위치: ${marker.storeAddr}
+          </div>
+        `;
+        const overlay = new window.naver.maps.InfoWindow({
+          content: overlayContent,
+          disableAnchor: true,
+          borderWidth: 0,
+        });
+
+        window.naver.maps.Event.addListener(markerInstance, 'mouseover', () => {
+          overlay.open(map, markerInstance);
+        });
+        window.naver.maps.Event.addListener(markerInstance, 'mouseout', () => {
+          overlay.close();
+        });
+
+        return markerInstance;
       });
-      console.log(storeMapMarkers);
+
       // 새로 추가된 모든 마커 상태에 저장
       setMapMarkers([...pharmacyMapMarkers, ...storeMapMarkers]);
-      console.log(mapMarkers);
     }
   }, [pharmacyMarkers, storeMarkers, map]);
-  console.log(storeMarkers);
   
 
 
