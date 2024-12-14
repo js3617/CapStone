@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import useChat from "../../hooks/useChat";
 import useHospitals from '../../hooks/useHospitals';
 
@@ -159,6 +161,11 @@ const Btnwrapper = styled.div`
     max-width: 85%;
 `;
 
+const ChatBtnWrapper = styled.div`
+    display: flex;
+    max-width: 100%;
+`;
+
 const InfoBtn = styled.button`
     background-color: ${props => props.selected ? '#DDDDDD' : '#1C3988'};
     color: ${props => props.selected ? '#000000' : '#FFFFFF'};
@@ -167,7 +174,7 @@ const InfoBtn = styled.button`
     align-items: center;
     justify-content: center;
     border: none;
-    padding: 2px;
+    padding: 5px;
     font-size: 1.1vh;
     margin-left: 5px;
     flex: 1;
@@ -206,11 +213,19 @@ const Img = styled.img`
 // #E3E3E3
 
 const Text = styled.p`
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
     color: #667085;
     font-size: 1.1vh;
-    justify-content: center;
-    align-items: center;
     text-align: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-break:break-all;
+    height: 4vh;
+    width: 100%;
+    cursor: default;
 `;
 
 function Conversation({ closeChat, isHidden, setIsHidden }) {
@@ -220,6 +235,8 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
 
     const [drugs, setDrugs] = useState([]);
     // const [hospitals, setHospitals] = useState([]);
+
+    const navigate = useNavigate();
 
     const hospitals = useHospitals();
 
@@ -317,7 +334,10 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                                         <InfoBox>
                                             <Name>{drug.drugName}</Name>
                                             <Img src={drug.drugImage} alt="약" />
-                                            <Text>{drug.drugDose}</Text>
+                                            <Text title={drug.drugDose}>{drug.drugDose}</Text>
+                                            <ChatBtnWrapper>
+                                                <InfoBtn onClick={() => navigate(`/store/stock/${drug._id}?drugName=${encodeURIComponent(drug.drugName)}`)}>근처 약국/편의점</InfoBtn>
+                                            </ChatBtnWrapper>
                                         </InfoBox>
                                     </SwiperSlide>
                                 )) : <p>No drugs found</p>}
@@ -338,6 +358,9 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                                             <Name>{hospital.hospitalsName}</Name>
                                             <Img src={MapImage} alt="병원" />
                                             <Text>{hospital.hospitalsAddr}</Text>
+                                            <Btnwrapper>
+                                                <InfoBtn>병원 상세 정보</InfoBtn>
+                                            </Btnwrapper>
                                         </InfoBox>
                                     </SwiperSlide>
                                 )) : <p>No hospitals found</p>}
