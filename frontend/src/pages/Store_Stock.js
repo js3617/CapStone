@@ -30,6 +30,7 @@ const NavButton = styled.button`
     border: none;
     &:hover {
         background-color: #E8E8E8;
+        color: #000000;
     }
 `;
 
