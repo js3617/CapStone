@@ -22,19 +22,17 @@ const API_store = ({selectedCategory}) => {
 
   useEffect(() => {
     // Naver Maps API 스크립트가 로드되었는지 확인하는 함수
-    const loadNaverMapsScript = () => {
-      return new Promise((resolve) => {
-        if (window.naver && window.naver.maps) {
-          resolve();
-        } else {
-          const script = document.createElement('script');
-          script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.REACT_APP_NCP_CLIENT_ID}`;
-          script.async = true;
-          script.onload = () => resolve();
-          document.head.appendChild(script);
-        }
-      });
-    };
+    const loadNaverMapsScript = () => new Promise((resolve) => {
+      if (window.naver && window.naver.maps) {
+        resolve();
+      } else {
+        const script = document.createElement('script');
+        script.src = `https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.REACT_APP_NCP_CLIENT_ID}`;
+        script.async = true;
+        script.onload = () => resolve();
+        document.head.appendChild(script);
+      }
+    });
 
     // 지도를 초기화하고 마커를 로드하는 함수
     const initialize = async () => {
@@ -75,43 +73,36 @@ const API_store = ({selectedCategory}) => {
       });
   };
 
-  // const clearMarkers = () => {
-  //   mapMarkers.forEach(marker => marker.setMap(null)); // 마커를 지도에서 제거
-  //   setMapMarkers([]); // 상태 초기화
-  // };
+  const clearMarkers = () => {
+    mapMarkers.forEach(marker => marker.setMap(null)); // 마커를 지도에서 제거
+    setMapMarkers([]); // 상태 초기화
+  };
 
   // 마커를 지도에 추가하는 useEffect
   useEffect(() => {
     if (map && markers.length > 0) {
-      console.log("전체 마커 수:", markers.length);
-      // clearMarkers();
+      clearMarkers();
+
+      console.log("마커 데이터 검증:", markers.map(marker => ({
+        name: marker.storeName,
+        coordinates: marker.location.coordinates,
+      })));
       
-      const filteredMarkers = markers.filter((marker) => {
-        if (selectedCategory === '전체') return true;
-        if (selectedCategory === 'CU' && marker.storeName.includes('CU')) return true;
-        if (selectedCategory === 'GS25' && marker.storeName.includes('GS25')) return true;
-        if (selectedCategory === '세븐일레븐' && marker.storeName.includes('세븐일레븐')) return true;
-        if (selectedCategory === '이마트24' && marker.storeName.includes('이마트24')) return true;
-        return false;
-      });
-      console.log("선택된 카테고리:", selectedCategory);
-      console.log("필터링된 마커 수:", filteredMarkers.length);
+      const filteredMarkers = markers.filter(marker =>
+        selectedCategory === '전체' || marker.storeName.includes(selectedCategory));
 
       const newMapMarkers = filteredMarkers.map((marker) => {
-        console.log("마커 데이터:", markers);
-        const newMarker = new window.naver.maps.Marker({
+        const markerInstance = new window.naver.maps.Marker({
           position: new window.naver.maps.LatLng(
-            marker.location.coordinates[1],
+            marker.location.coordinates[1], 
             marker.location.coordinates[0]
           ),
           map: map,
-          title: marker.storeName,
-          icon: {
-            url: '/images/redmarker.png', // 원하는 마커 이미지 경로
-            size: new window.naver.maps.Size(42, 53),
-            origin: new window.naver.maps.Point(0, 0),
-            anchor: new window.naver.maps.Point(11, 35),
-          },
+          title: marker.name,
+          icon: { url: '/images/redmarker.png', 
+            size: new window.naver.maps.Size(42, 53), 
+            origin: new window.naver.maps.Point(0, 0), 
+            anchor: new window.naver.maps.Point(11, 35) }
         });
 
         const overlayContent = `
@@ -126,23 +117,19 @@ const API_store = ({selectedCategory}) => {
           borderWidth: 0,
         });
 
-        window.naver.maps.Event.addListener(newMarker, 'mouseover', () => {
-          overlay.open(map, newMarker);
+        window.naver.maps.Event.addListener(markerInstance, 'mouseover', () => {
+          overlay.open(map, markerInstance);
         });
-        window.naver.maps.Event.addListener(newMarker, 'mouseout', () => {
+        window.naver.maps.Event.addListener(markerInstance, 'mouseout', () => {
           overlay.close();
         });
 
-        console.log(newMarker);
-        return newMarker;
+        return markerInstance;
       });
-      console.log(newMapMarkers);
 
       setMapMarkers(newMapMarkers); // 새로운 마커들을 상태에 저장
-      console.log("업데이트된 마커 상태:", mapMarkers);
     }
   }, [markers, map, selectedCategory]);
-  console.log(markers.map(marker => marker.storeName));
 
   return (
     <MapContainer>
