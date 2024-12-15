@@ -16,11 +16,12 @@ const MapElement = styled.div`
 `;
 
 const API_hospital = ({ selectedCategory, selectedType }) => {
-    const [markers, setMarkers] = useState([]);
-    const [map, setMap] = useState(null);
-    const [mapMarkers, setMapMarkers] = useState([]);
+    const [markers, setMarkers] = useState([]); // 병원 데이터를 저장하는 상태
+    const [map, setMap] = useState(null); // Naver Map 객체를 저장하는 상태
+    const [mapMarkers, setMapMarkers] = useState([]); // Map에 표시되는 마커 객체들을 저장하는 상태
 
     useEffect(() => {
+        // Naver Map 스크립트를 동적으로 로드
         const loadNaverMapScript = () => {
         return new Promise((resolve, reject) => {
             if (window.naver && window.naver.maps) {
@@ -36,6 +37,7 @@ const API_hospital = ({ selectedCategory, selectedType }) => {
         });
         };
 
+        // Map을 초기화하고 병원 데이터를 가져오는 함수
         const initMap = async () => {
         try {
             await loadNaverMapScript();
@@ -56,6 +58,7 @@ const API_hospital = ({ selectedCategory, selectedType }) => {
         initMap();
     }, []);
 
+    // 주어진 위도와 경도에 따라 병원 데이터를 가져오는 함수
     const fetchNearbyHospitals = (latitude, longitude) => {
         apiClient.post('/hospital', { latitude, longitude })
         .then(response => {
@@ -66,6 +69,7 @@ const API_hospital = ({ selectedCategory, selectedType }) => {
         });
     };
 
+    // 지도를 초기화하는 함수
     const initializeMap = (latitude, longitude) => {
         const mapOptions = {
         center: new window.naver.maps.LatLng(latitude, longitude),
@@ -75,31 +79,42 @@ const API_hospital = ({ selectedCategory, selectedType }) => {
         setMap(mapInstance);
     };
 
+    // 지도에 표시된 모든 마커를 제거하는 함수
+    const clearMarkers = () => {
+        mapMarkers.forEach(marker => marker.setMap(null)); // 마커를 지도에서 제거
+        setMapMarkers([]); // 상태 초기화
+    };
+
+    // 선택된 카테고리와 유형에 따라 마커를 필터링하고 지도에 추가하는 useEffect
     useEffect(() => {
         if (map && markers.length > 0) {
             // 기존에 표시된 모든 마커를 지도에서 제거
-            mapMarkers.forEach(marker => marker.setMap(null));
+            clearMarkers();
 
-            //수정 필요
-            const filteredMarkers = markers.filter(marker =>
-                (selectedCategory === '전체' || marker.category === selectedCategory) &&
-                (selectedType === '전체' || marker.type === selectedType)
-            );
+            // 필터링 조건에 맞는 마커만 필터링
+            const filteredMarkers = markers.filter(marker => {
+                console.log("Checking Marker:", marker);
+                const matchesCategory = selectedCategory === '전체' || marker.category === selectedCategory;
+                const matchesType = selectedType === '전체' || marker.type === selectedType;
+                console.log(`Category Matches: ${matchesCategory}, Type Matches: ${matchesType}`);
+                return matchesCategory && matchesType;
+            });            
 
+            // 필터링된 마커를 지도에 추가
             const newMapMarkers = filteredMarkers.map(marker => {
                 const markerInstance = new window.naver.maps.Marker({
-                position: new window.naver.maps.LatLng(
-                    marker.location.coordinates[1], 
-                    marker.location.coordinates[0]
-                ),
-                map: map,
-                title: marker.name,
-                icon: {
-                    url: '/images/redmarker.png', // 병원 마커 이미지로 교체
-                    size: new window.naver.maps.Size(42, 53),
-                    origin: new window.naver.maps.Point(0, 0),
-                    anchor: new window.naver.maps.Point(11, 35)
-                }
+                    position: new window.naver.maps.LatLng(
+                        marker.location.coordinates[1], 
+                        marker.location.coordinates[0]
+                    ),
+                    map: map,
+                    title: marker.name,
+                    icon: {
+                        url: '/images/redmarker.png', // 병원 마커 이미지로 교체
+                        size: new window.naver.maps.Size(42, 53),
+                        origin: new window.naver.maps.Point(0, 0),
+                        anchor: new window.naver.maps.Point(11, 35)
+                    }
                 });
                 
                 // 커스텀 오버레이 생성
@@ -125,7 +140,7 @@ const API_hospital = ({ selectedCategory, selectedType }) => {
                 });
                 return markerInstance;
             });
-            setMapMarkers(newMapMarkers);
+            setMapMarkers(newMapMarkers); // 새로운 마커들을 상태에 저장
         }
     }, [markers, map, selectedCategory, selectedType]);
 

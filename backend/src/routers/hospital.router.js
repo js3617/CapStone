@@ -1,11 +1,31 @@
-// src/routes/hospital.router.js
 const express = require('express');
 const Hospital = require('../models/hospital.model'); 
 const router = express.Router();
 
-// 위치 기반 병원 검색 API
+function filterHospitals(hospitals, filters) {
+    return hospitals.filter(hospital => {
+        let matchesCategory = true;
+        let matchesType = true;
+
+        // Ensure filters object and its properties exist before trying to access them
+        if (filters && filters.category) {
+            if (filters.category === '야간진료') {
+                matchesCategory = hospital.operatingHours.some(hour => hour.close >= 1830);
+            } else if (filters.category === '공휴일진료') {
+                matchesCategory = hospital.operatingHours.some(hour => hour.dayOfWeek === '공휴일');
+            }
+        }
+
+        if (filters && filters.type && filters.type !== '전체') {
+            matchesType = hospital.hospitalsType === filters.type;
+        }
+
+        return matchesCategory && matchesType;
+    });
+}
+
 router.post('/', async (req, res) => {
-    const { latitude, longitude } = req.body;
+    const { latitude, longitude, filters = {} } = req.body;
     
     if (!latitude || !longitude) {
         return res.status(400).json({ error: "Latitude and longitude are required." });
@@ -15,13 +35,19 @@ router.post('/', async (req, res) => {
         const hospitals = await Hospital.find({
             location: {
                 $near: {
-                    $geometry: { type: "Point", coordinates: [longitude, latitude] },
-                    $maxDistance: 5000 // 5km 이내의 병원 검색
+                    $geometry: { 
+                        type: "Point", 
+                        coordinates: [longitude, latitude]
+                    },
+                    
                 }
             }
         });
-        res.json({ hospitals });
-        console.log(hospitals);
+
+        const filteredHospitals = filterHospitals(hospitals, filters);
+        
+        res.json({ hospitals: filteredHospitals });
+        console.log(filteredHospitals);
     } catch (error) {
         console.error('Database error:', error);
         res.status(500).json({ error: "Internal server error" });
