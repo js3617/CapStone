@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+
 import usePharmacies from '../../hooks/usePharmacies';
 import useStores from '../../hooks/useStores';
-import { BsTelephone } from 'react-icons/bs';
+
+import styled from 'styled-components';
 import { LocationText, Name } from '../../styles/styled';
+
+import { BsTelephone } from 'react-icons/bs';
+import { GoPlus } from "react-icons/go";
 
 const Container = styled.div`
     display: flex;
@@ -47,10 +51,26 @@ const NoDataMessage = styled.div`
     margin-top: 20px;
 `;
 
+const MoreBtn = styled.button`
+    background-color: transparent;
+    border: none;
+    color: #000000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+`;
+
 const CombinedInformation = () => {
     const pharmacies = usePharmacies();
     const stores = useStores();
     const [combinedData, setCombinedData] = useState([]);
+
+    const [visibleCount, setVisibleCount] = useState(10);
+
+    const handleLoadMore = () => {
+        setVisibleCount(prevCount => prevCount + 10);  // 10개씩 추가로 데이터를 표시
+    };
 
     // pharmacies와 stores가 변경될 때만 combinedData를 업데이트
     useEffect(() => {
@@ -74,7 +94,7 @@ const CombinedInformation = () => {
         <Container>
             {combinedData.length > 0 ? (
                 <List>
-                    {combinedData.map((item, index) => (
+                    {combinedData.slice(0, visibleCount).map((item, index) => (
                         <Item key={index}>
                             <div>
                                 <Name>{item.name}</Name>
@@ -90,6 +110,9 @@ const CombinedInformation = () => {
                 </List>
             ) : (
                 <NoDataMessage>관련 정보가 없습니다</NoDataMessage>
+            )}
+            {visibleCount < stores.length && (
+                <MoreBtn onClick={handleLoadMore}><GoPlus />더 보기</MoreBtn>  // "더 보기" 버튼 추가
             )}
         </Container>
     );
