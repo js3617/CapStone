@@ -82,11 +82,6 @@ const API_store = ({selectedCategory}) => {
   useEffect(() => {
     if (map && markers.length > 0) {
       clearMarkers();
-
-      console.log("마커 데이터 검증:", markers.map(marker => ({
-        name: marker.storeName,
-        coordinates: marker.location.coordinates,
-      })));
       
       const filteredMarkers = markers.filter(marker =>
         selectedCategory === '전체' || marker.storeName.includes(selectedCategory));
