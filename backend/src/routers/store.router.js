@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
                     $maxDistance: 5000 // 5km 이내의 상점만 조회
                 }
             }
-        }).limit(10).exec();
+        }).limit(30).exec();
 
         res.status(200).json({ stores });
     } catch (error) {
@@ -91,8 +91,8 @@ function filterStores(nearbyStores, storeStocks) {
         const matchingStoreName = stockNames.find(stockName => 
             storeNameNormalized.includes(stockName) ||
             stockName.includes(storeNameNormalized) ||
-            ("씨유" + storeNameNormalized).includes(stockName) ||
-            stockName.includes("씨유" + storeNameNormalized)
+            ("CU" + storeNameNormalized).includes(stockName) ||
+            stockName.includes("CU" + storeNameNormalized)
         );
 
         if (matchingStoreName) {
@@ -105,8 +105,8 @@ function filterStores(nearbyStores, storeStocks) {
         const matchingStore = storeStocks.find(stock => 
             storeNameNormalized.includes(stock.name.replace(/\s/g, '').toLowerCase()) ||
             stock.name.replace(/\s/g, '').toLowerCase().includes(storeNameNormalized) ||
-            ("씨유" + storeNameNormalized).includes(stock.name.replace(/\s/g, '').toLowerCase()) ||
-            stock.name.replace(/\s/g, '').toLowerCase().includes("씨유" + storeNameNormalized)
+            ("CU" + storeNameNormalized).includes(stock.name.replace(/\s/g, '').toLowerCase()) ||
+            stock.name.replace(/\s/g, '').toLowerCase().includes("CU" + storeNameNormalized)
         );
         return {
             ...store.toObject(),
