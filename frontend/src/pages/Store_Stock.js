@@ -47,21 +47,21 @@ function Store_Stock() {
                     전체
                 </NavButton>
                 <NavButton
-                    active={activeComponent === "Store"}
-                    onClick={() => setActiveComponent("Store")}
+                    active={activeComponent === "편의점"}
+                    onClick={() => setActiveComponent("편의점")}
                 >
-                    Store
+                    편의점
                 </NavButton>
                 <NavButton
-                    active={activeComponent === "Pharmacy"}
-                    onClick={() => setActiveComponent("Pharmacy")}
+                    active={activeComponent === "약국"}
+                    onClick={() => setActiveComponent("약국")}
                 >
-                    Stock
+                    약국
                 </NavButton>
             </ButtonContainer>
             {activeComponent === "전체" && <Store_Stock_All />}
-            {activeComponent === "Store" && <Store />}
-            {activeComponent === "Pharmacy" && <Pharmacy />}
+            {activeComponent === "편의점" && <Store />}
+            {activeComponent === "약국" && <Pharmacy />}
         </Main>
     );
 }

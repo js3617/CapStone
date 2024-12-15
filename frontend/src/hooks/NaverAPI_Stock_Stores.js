@@ -135,7 +135,10 @@ const NaverAPI_Stock_Stores = ({ selectedCategory }) => {
       // 편의점 마커 추가
       const storeMapMarkers = storeMarkers.map(marker => {
         const markerInstance = new window.naver.maps.Marker({
-          position: new window.naver.maps.LatLng(marker.location.coordinates[1], marker.location.coordinates[0]),
+          position: new window.naver.maps.LatLng(
+            marker.location.coordinates[1], 
+            marker.location.coordinates[0]
+          ),
           map: map,
           title: marker.storeName,
           icon: {
