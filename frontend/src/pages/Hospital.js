@@ -141,7 +141,7 @@ const Hospital = () => {
                     </DropdownContent>
                 </Dropdown>
             </Category>
-            <API_hospital selectedCategory={selectedCategory}/>
+            <API_hospital selectedCategory={selectedCategory} selectedType={selectedType} />
             <HospitalInformation
                 selectedCategory={selectedCategory}
                 selectedType={selectedType}
