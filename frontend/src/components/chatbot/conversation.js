@@ -61,12 +61,13 @@ const BotMessage = styled.div`
     align-self: flex-start;
     max-width: 80%;
     line-height: 1.25rem;
+    white-space: pre-wrap;
 `;
 
 // 유저가 보낸 메시지 스타일
 const UserMessage = styled.div`
     background-color: #2A4387;
-    color: white;
+    color: #ffffff;
     padding: 10px;
     border-radius: 10px 10px 0 10px;
     margin-top: 10px;
@@ -293,6 +294,25 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                 console.error('Error fetching drugs:', error);
             });
     }, []);
+
+    const displayDrugInfo = (message) => {
+        // 메시지에서 모든 약 이름을 찾고, 해당 약의 상세 정보를 배열로 반환
+        const drugsInfo = drugs.filter(drug => message.includes(drug.drugName)).map(drug => (
+            <InfoBox key={drug._id}>
+                <Name>{drug.drugName}</Name>
+                <Img src={drug.drugImage} alt="Drug" />
+                <Text>{drug.drugDose}</Text>
+                <ChatBtnWrapper>
+                    <InfoBtn onClick={() => navigate(`/store/stock/${drug._id}?drugName=${encodeURIComponent(drug.drugName)}`)}>
+                        근처 약국/편의점 찾기
+                    </InfoBtn>
+                </ChatBtnWrapper>
+            </InfoBox>
+        ));
+    
+        // 찾은 약 정보가 있는 경우에만 화면에 표시
+        return drugsInfo.length > 0 ? drugsInfo : null;
+    };
     
     return (
     <ChatWrapper isHidden={isHidden}>
@@ -339,19 +359,12 @@ function Conversation({ closeChat, isHidden, setIsHidden }) {
                                 <Swiper
                                     modules={[Navigation, Pagination]}
                                     spaceBetween={70}
-                                    slidesPerView={2}
+                                    slidesPerView={1}
                                     navigation
                                 >
                                 {drugs.length > 0 ? drugs.slice(0, 4).map(drug => (
                                     <SwiperSlide key={drug._id}>
-                                        <InfoBox>
-                                            <Name>{drug.drugName}</Name>
-                                            <Img src={drug.drugImage} alt="약" />
-                                            <Text title={drug.drugDose}>{drug.drugDose}</Text>
-                                            <ChatBtnWrapper>
-                                                <InfoBtn onClick={() => navigate(`/store/stock/${drug._id}?drugName=${encodeURIComponent(drug.drugName)}`)}>근처 약국/편의점</InfoBtn>
-                                            </ChatBtnWrapper>
-                                        </InfoBox>
+                                        {displayDrugInfo(msg.message)}
                                     </SwiperSlide>
                                 )) : <p>No drugs found</p>}
                                 </Swiper>
