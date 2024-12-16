@@ -10,11 +10,10 @@ import styled from "styled-components";
 import { FiSend, FiMinus, FiX } from "react-icons/fi";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Scrollbar } from 'swiper/modules';
+import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import 'swiper/css/scrollbar';
 
 // 전체 채팅 인터페이스 래퍼
 const ChatWrapper = styled.div`
@@ -183,6 +182,20 @@ const InfoBtn = styled.button`
 
 const InfoDisplay = styled.div`
     display: flex;
+
+    .swiper-button-prev,
+    .swiper-button-next {
+        color: rgba(221, 221, 221, 0.85) !important
+    }
+
+    .swiper-button-prev:after,
+    .swiper-button-next:after {
+        font-size: 1.6rem !important;
+        font-weight: 1000 !important;
+    }
+    .swiper-button-next.swiper-button-disabled, .swiper-button-prev.swiper-button-disabled {
+        opacity: 0 !important;
+    }
 `;
 
 const InfoBox = styled.div`
