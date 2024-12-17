@@ -62,12 +62,28 @@ const API_hospital = ({ selectedCategory, selectedType }) => {
     const fetchNearbyHospitals = (latitude, longitude) => {
         apiClient.post('/hospital', { latitude, longitude })
         .then(response => {
-            setMarkers(response.data.hospitals);
+            const enrichedHospitals = response.data.hospitals.map(hospital => {
+                // 카테고리 결정 로직
+                let category = "기본";  // 기본 카테고리 설정
+                const hasNightService = hospital.operatingHours.some(hour => hour.close >= 1830);
+                const hasHolidayService = hospital.operatingHours.some(hour => hour.dayOfWeek === '공휴일');
+    
+                if (hasNightService) category = "야간진료";
+                if (hasHolidayService) category = "공휴일진료";
+    
+                return {
+                    ...hospital,
+                    type: hospital.hospitalsType,  // hospitalsType을 type으로 매핑
+                    category  // 결정된 카테고리 할당
+                };
+            });
+            setMarkers(enrichedHospitals);
         })
         .catch(error => {
             console.error('Error fetching nearby hospitals:', error);
         });
     };
+    
 
     // 지도를 초기화하는 함수
     const initializeMap = (latitude, longitude) => {
@@ -96,7 +112,7 @@ const API_hospital = ({ selectedCategory, selectedType }) => {
                 console.log("Checking Marker:", marker);
                 const matchesCategory = selectedCategory === '전체' || marker.category === selectedCategory;
                 const matchesType = selectedType === '전체' || marker.type === selectedType;
-                console.log(`Category Matches: ${matchesCategory}, Type Matches: ${matchesType}`);
+                console.log(`Category Matches: ${matchesCategory}, Type Matches: ${matchesType}, Expected Type: ${selectedType}, Marker Type: ${marker.hospitalsType}`);
                 return matchesCategory && matchesType;
             });            
 
