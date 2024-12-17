@@ -7,7 +7,6 @@ function filterHospitals(hospitals, filters) {
         let matchesCategory = true;
         let matchesType = true;
 
-        // Ensure filters object and its properties exist before trying to access them
         if (filters && filters.category) {
             if (filters.category === '야간진료') {
                 matchesCategory = hospital.operatingHours.some(hour => hour.close >= 1830);
@@ -47,7 +46,6 @@ router.post('/', async (req, res) => {
         const filteredHospitals = filterHospitals(hospitals, filters);
         
         res.json({ hospitals: filteredHospitals });
-        console.log(filteredHospitals);
     } catch (error) {
         console.error('Database error:', error);
         res.status(500).json({ error: "Internal server error" });
