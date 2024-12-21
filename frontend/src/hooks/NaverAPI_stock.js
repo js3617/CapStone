@@ -72,7 +72,7 @@ const API_stock = () => {
         setMarkers(response.data.stores);
       })
       .catch((error) => {
-        console.error('Error fetching nearby stores:', error);
+        console.error('Error fetching nearby stores:', error); 
       });
   };
 
