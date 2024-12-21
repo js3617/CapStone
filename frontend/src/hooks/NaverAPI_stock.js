@@ -90,8 +90,8 @@ const API_stock = () => {
             url: '/images/redmarker.png',
             size: new window.naver.maps.Size(42, 53),
             origin: new window.naver.maps.Point(0, 0),
-            anchor: new window.naver.maps.Point(11, 35),
-          },
+            anchor: new window.naver.maps.Point(11, 35), 
+          }, 
         });
 
         // 커스텀 오버레이 생성
