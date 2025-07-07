@@ -1,0 +1,113 @@
+.comment-editor {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.comment-editor .editor-container {
+  padding: 0;
+}
+
+.comment-editor .rich-text-editor {
+  margin: 0;
+  box-shadow: none;
+  border-radius: 0;
+}
+
+.comment-editor .rich-text-editor .ql-toolbar {
+  border: none;
+  border-bottom: 1px solid #e0e0e0;
+  border-radius: 0;
+  background-color: #f8f9fa;
+}
+
+.comment-editor .rich-text-editor .ql-container {
+  border: none;
+  border-radius: 0;
+}
+
+.editor-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background-color: #f8f9fa;
+  border-top: 1px solid #e0e0e0;
+}
+
+.editor-stats {
+  display: flex;
+  gap: 15px;
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.stat-item {
+  font-weight: 500;
+}
+
+.editor-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-cancel {
+  background-color: #6c757d;
+  color: white;
+}
+
+.btn-cancel:hover {
+  background-color: #5a6268;
+}
+
+.btn-submit {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-submit:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.btn-submit:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .editor-footer {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+    padding: 15px;
+  }
+  
+  .editor-stats {
+    justify-content: center;
+    font-size: 0.8rem;
+  }
+  
+  .editor-actions {
+    justify-content: stretch;
+  }
+  
+  .btn {
+    flex: 1;
+    padding: 10px;
+  }
+}

@@ -1,0 +1,113 @@
+.rich-text-editor {
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.rich-text-editor .ql-toolbar {
+  border: 1px solid #e0e0e0;
+  border-bottom: none;
+  background-color: #f8f9fa;
+  border-radius: 8px 8px 0 0;
+  padding: 12px;
+}
+
+.rich-text-editor .ql-container {
+  border: 1px solid #e0e0e0;
+  border-radius: 0 0 8px 8px;
+  font-family: 'Arial', sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.rich-text-editor .ql-editor {
+  min-height: 200px;
+  padding: 20px;
+}
+
+.rich-text-editor .ql-editor::before {
+  color: #adb5bd;
+  font-style: italic;
+}
+
+/* 툴바 버튼 스타일링 */
+.rich-text-editor .ql-toolbar .ql-formats {
+  margin-right: 15px;
+}
+
+.rich-text-editor .ql-toolbar button {
+  border-radius: 4px;
+  margin: 0 2px;
+  padding: 4px 6px;
+  transition: all 0.2s ease;
+}
+
+.rich-text-editor .ql-toolbar button:hover {
+  background-color: #e9ecef;
+}
+
+.rich-text-editor .ql-toolbar button.ql-active {
+  background-color: #007bff;
+  color: white;
+}
+
+/* 드롭다운 스타일링 */
+.rich-text-editor .ql-toolbar .ql-picker {
+  margin: 0 2px;
+}
+
+.rich-text-editor .ql-toolbar .ql-picker-label {
+  border-radius: 4px;
+  padding: 4px 8px;
+  transition: all 0.2s ease;
+}
+
+.rich-text-editor .ql-toolbar .ql-picker-label:hover {
+  background-color: #e9ecef;
+}
+
+.rich-text-editor .ql-toolbar .ql-picker-options {
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e0e0e0;
+  background-color: white;
+}
+
+/* 포커스 상태 스타일링 */
+.rich-text-editor .ql-container.ql-snow {
+  border-color: #007bff;
+  transition: border-color 0.2s ease;
+}
+
+.rich-text-editor .ql-editor.ql-blank::before {
+  color: #6c757d;
+  font-size: 14px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+  .rich-text-editor .ql-toolbar {
+    padding: 8px;
+  }
+  
+  .rich-text-editor .ql-toolbar .ql-formats {
+    margin-right: 10px;
+    margin-bottom: 5px;
+  }
+  
+  .rich-text-editor .ql-editor {
+    padding: 15px;
+    min-height: 150px;
+  }
+}
+
+/* 읽기 전용 모드 스타일 */
+.rich-text-editor .ql-container.ql-disabled .ql-editor {
+  background-color: #f8f9fa;
+  color: #6c757d;
+}
+
+.rich-text-editor .ql-toolbar.ql-disabled {
+  display: none;
+}
